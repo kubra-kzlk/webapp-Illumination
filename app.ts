@@ -2,15 +2,29 @@ import axios from "axios";
 import * as readline from "readline-sync";
 import { lamps } from "./interface";
 
+// Define the sun pattern as a string array
+const sunPattern: string[] = [
+  "      *       ",
+  "     ***     ",
+  "    *****    ",
+  "   *******   ",
+  "  *********  ",
+  " *********** ",
+  "  *********  ",
+  "   *******   ",
+  "    *****    ",
+  "     ***     ",
+  "      *       ",
+];
+
 let logo = () => {
-  console.log(`-------------`);
-  console.log(`logo`);
+  console.log(sunPattern);
 };
 
 const api = async (): Promise<lamps[]> => {
   try {
-    const response = await axios.get<lamps[]>(
-      "https://github.com/kubra-kzlk/lamps.api/blob/main/lamps.api"
+    const response = await axios.get(
+      "https://kubra-kzlk.github.io/lamps/lamps.json"
     );
     return response.data;
   } catch (error) {
@@ -21,8 +35,9 @@ const api = async (): Promise<lamps[]> => {
 
 const showAllLamps = async () => {
   const lamps = await api();
+
   lamps.forEach((lamp) => {
-    console.log(`${lamp.name} (ID: ${lamp.id})`);
+    console.log(`${lamp.naam} (ID: ${lamp.id})`);
   });
 };
 
