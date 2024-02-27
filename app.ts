@@ -1,6 +1,6 @@
 import axios from "axios";
 import * as readline from "readline-sync";
-import { lamps } from "./interface";
+import { Lamp } from "./interface";
 
 // Define the sun pattern as a string array
 const sunPattern: string[] = [
@@ -21,7 +21,7 @@ let logo = () => {
   console.log(sunPattern);
 };
 
-const api = async (): Promise<lamps[]> => {
+const api = async (): Promise<Lamp[]> => {
   try {
     const response = await axios.get(
       "https://kubra-kzlk.github.io/lamps/lamps.json"
