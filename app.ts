@@ -2,7 +2,6 @@ import axios from "axios";
 import * as readline from "readline-sync";
 import { Lamp } from "./interface";
 
-// Define the sun pattern as a string array
 const sunPattern: string[] = [
   "      *       ",
   "     ***     ",
@@ -84,4 +83,4 @@ const application = async () => {
   }
 };
 application();
-//Zorg ervoor dat je alles pushed naar je rep.
+//alles pushen nr je repo
