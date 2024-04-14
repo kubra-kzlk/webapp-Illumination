@@ -47,19 +47,20 @@
             <td>
               <div class="d-flex align-items-center">
                 <img src="<%- lamp.foto %>" alt="image" style="width: 80px; height: 80px" />
-                <div class="ms-3">
+                
                   <%- lamp.naam %>
-                </div>
+              
               </div>
             </td>
             <td class="fw-normal mb-1"><%- lamp.prijs %></td>
             <td><%- lamp.id %></td>
             <td><%- lamp.kleur %></td>
             <td class="text-black">
-              <span class="badge badge-success rounded-pill d-inline">Active</span>
+              <span class="badge badge-success rounded-pill d-inline ">Active</span>
             </td>
             <td>
-              <button type="button" class="btn btn-link btn-sm btn-rounded">View</button>
+              <button type="button" class="btn btn-link btn-sm btn-rounded">
+               <a href="detail.ejs" class="btn btn-primary"> view </a></button>
             </td>
             
           </tr>

@@ -15,6 +15,17 @@ app.set("port", process.env.PORT || 3000);
 let lamps: Lamp[] = [];
 
 app.use("/", (req, res) => {
+  //zoeken
+  const searchQuery = typeof req.query.q === "string" ? req.query.q.toLowerCase() : "";
+
+  let filteredLamps = lamps;
+  if (searchQuery) {
+    filteredLamps = lamps.filter((lamp) =>
+      lamp.naam.toLowerCase().includes(searchQuery)
+    );
+  }
+
+  //sorteren
   const sortField =
     typeof req.query.sortField === "string" ? req.query.sortField : "naam";
   const sortDirection =
@@ -36,9 +47,9 @@ app.use("/", (req, res) => {
         : b.kleur.localeCompare(a.kleur);
     } else if (sortField === "actief") {
       return sortDirection === "asc"
-        ? a.actief.localCompare(b.actief)
-        : b.actief.localCompare(a.actief);
-    }
+        ? Number(a.actief) - Number(b.actief)
+        : Number(b.actief) - Number(a.actief);
+    } 
     else {
       return 0;
     }
@@ -91,6 +102,7 @@ app.use("/", (req, res) => {
     sortDirections: sortDirections,
     sortField: sortField,
     sortDirection: sortDirection,
+    searchQuery
   });
 });
 
