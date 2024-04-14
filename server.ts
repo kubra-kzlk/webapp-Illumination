@@ -2,7 +2,7 @@ import express, { Express } from "express";
 import ejs from "ejs";
 import { Lamp } from "./interface";
 import { Fabrikant } from "./interface";
-
+import { path } from "path";
 const app: Express = express();
 
 app.set("view engine", "ejs"); // EJS als view engine
@@ -13,6 +13,11 @@ app.use(express.static("public")); //tell express to serve the content of public
 app.set("port", process.env.PORT || 3000);
 
 let lamps: Lamp[] = [];
+
+
+app.get('/detail', (req, res) => {
+  res.render(path.join(__dirname, '/views/detail.ejs'));
+});
 
 app.use("/", (req, res) => {
   //zoeken
@@ -49,7 +54,7 @@ app.use("/", (req, res) => {
       return sortDirection === "asc"
         ? Number(a.actief) - Number(b.actief)
         : Number(b.actief) - Number(a.actief);
-    } 
+    }
     else {
       return 0;
     }
