@@ -34,7 +34,12 @@ app.use("/", (req, res) => {
       return sortDirection === "asc"
         ? a.kleur.localeCompare(b.kleur)
         : b.kleur.localeCompare(a.kleur);
-    } else {
+    } else if (sortField === "actief") {
+      return sortDirection === "asc"
+        ? a.actief.localCompare(b.actief)
+        : b.actief.localCompare(a.actief);
+    }
+    else {
       return 0;
     }
   });
@@ -60,6 +65,11 @@ app.use("/", (req, res) => {
       text: "Kleur",
       selected: sortField === "kleur" ? "selected" : "",
     },
+    {
+      value: "actief",
+      text: "Actief",
+      selected: sortField === "actief" ? "selected" : "",
+    }
   ];
 
   const sortDirections = [
