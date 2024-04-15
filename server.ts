@@ -1,18 +1,23 @@
 import express, { Express } from "express";
+import dotenv from "dotenv";
 import ejs from "ejs";
 import { Lamp } from "./interface";
 import { Fabrikant } from "./interface";
-import { path } from "path";
+import path from "path";
+
 const app: Express = express();
+
+dotenv.config();
 
 app.set("view engine", "ejs"); // EJS als view engine
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static("public")); //tell express to serve the content of public dir
-
+app.use(express.static(path.join(__dirname, "public")));  //tell express to serve the content of public dir
+app.set('views', path.join(__dirname, "views"));
 app.set("port", process.env.PORT || 3000);
 
-let lamps: Lamp[] = [];
+const lampsData: Lamp[] = [];
+const fabricsData: Fabrikant[] = [];
 
 
 app.get('/detail', (req, res) => {
@@ -23,9 +28,9 @@ app.use("/", (req, res) => {
   //zoeken
   const searchQuery = typeof req.query.q === "string" ? req.query.q.toLowerCase() : "";
 
-  let filteredLamps = lamps;
+  let filteredLamps = lampsData;
   if (searchQuery) {
-    filteredLamps = lamps.filter((lamp) =>
+    filteredLamps = lampsData.filter((lamp) =>
       lamp.naam.toLowerCase().includes(searchQuery)
     );
   }
@@ -37,7 +42,7 @@ app.use("/", (req, res) => {
     typeof req.query.sortDirection === "string"
       ? req.query.sortDirection
       : "asc";
-  let sortedLamps = [...lamps].sort((a, b) => {
+  let sortedLamps = [...lampsData].sort((a, b) => {
     if (sortField === "naam") {
       return sortDirection === "asc"
         ? a.naam.localeCompare(b.naam)
@@ -115,7 +120,6 @@ app.use("/", (req, res) => {
 app.listen(app.get("port"), async () => {
   let response = await fetch(
     "https://raw.githubusercontent.com/kubra-kzlk/lamps/main/lamps.json"
-  );
-  lamps = await response.json();
+  );  
   console.log("[server] http://localhost:" + app.get("port"));
 });
