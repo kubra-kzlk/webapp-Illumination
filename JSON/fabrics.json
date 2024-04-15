@@ -1,0 +1,72 @@
+[
+  {
+    "id": 101,
+    "naam": "Lampify",
+    "adres": "Antwerpen, België",
+    "telefoon": "+32 3 123 45 67",
+    "website": "www.lampify.be"
+  },
+  {
+    "id": 102,
+    "naam": "Sunlight",
+    "adres": "Brussel, België",
+    "telefoon": "+32 2 234 56 78",
+    "website": "www.sunlight.be"
+  },
+  {
+    "id": 103,
+    "naam": "Flower Power",
+    "adres": "Gent, België",
+    "telefoon": "+32 9 345 67 89",
+    "website": "www.flowerpower.be"
+  },
+  {
+    "id": 104,
+    "naam": "Rainbow",
+    "adres": "Luik, België",
+    "telefoon": "+32 4 456 78 90",
+    "website": "www.rainbow.be"
+  },
+  {
+    "id": 105,
+    "naam": "Lumina",
+    "adres": "Leuven, België",
+    "telefoon": "+32 16 567 89 01",
+    "website": "www.lumina.be"
+  },
+  {
+    "id": 106,
+    "naam": "Starlight",
+    "adres": "Brugge, België",
+    "telefoon": "+32 50 678 90 12",
+    "website": "www.starlight.be"
+  },
+  {
+    "id": 107,
+    "naam": "Earthly",
+    "adres": "Namen, België",
+    "telefoon": "+32 81 789 01 23",
+    "website": "www.earthly.be"
+  },
+  {
+    "id": 108,
+    "naam": "Zigzag",
+    "adres": "Charleroi, België",
+    "telefoon": "+32 71 890 12 34",
+    "website": "www.zigzag.be"
+  },
+  {
+    "id": 109,
+    "naam": "Lullaby",
+    "adres": "Hasselt, België",
+    "telefoon": "+32 11 901 23 45",
+    "website": "www.ello.be"
+  },
+  {
+    "id": 110,
+    "naam": "Roar",
+    "adres": "Kortrijk, België",
+    "telefoon": "+32 56 912 34 56",
+    "website": "www.roar.be"
+  }
+]

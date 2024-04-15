@@ -17,6 +17,6 @@ export interface Fabrikant {
   id: number;
   naam: string;
   adres: string;
-  telefoon: number;
+  telefoon: string;
   website: string;
 };
