@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));  //tell express to serve the content of public dir
 app.set('views', path.join(__dirname, "views"));
-app.set("port", process.env.PORT || 3000);
+app.set("port", 3000);
 
 
 // Parse JSON data
