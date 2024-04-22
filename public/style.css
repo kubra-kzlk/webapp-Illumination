@@ -1,3 +1,20 @@
+.bool-value:after {
+  content: '';
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin: 0 auto;
+}
+
+.bool-value.true:after {
+  background-color: green;
+}
+
+.bool-value.false:after {
+  background-color: red;
+}
+
 .bd-placeholder-img {
   font-size: 1.125rem;
   text-anchor: middle;

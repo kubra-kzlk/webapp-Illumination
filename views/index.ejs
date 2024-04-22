@@ -6,13 +6,12 @@
     </div>
   </div>
 
-<form action="/" method="GET" class="input-group mb-3">
+<form action="/" method="get" class="input-group mb-3">
         <label for="q">Search:</label>
         <input  class="form-control"  type="text" id="q" name="q" placeholder="Search for products" value="<%= searchQuery %>" aria-describedby="button-addon2">
         <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
     </form>
  
-
 
   <form action="/" method="get" class="input-group col-md-5 p-lg-5 mx-auto my-5">
 
@@ -40,6 +39,9 @@
               </a>
             </th>
             <% } %>
+            <th>
+            view
+            </th>
         </tr>
       </thead>
       <tbody>
@@ -54,8 +56,8 @@
             <td class="fw-normal mb-1"><%- lamp.prijs %></td>
             <td><%- lamp.id %></td>
             <td><%- lamp.kleur %></td>
-            <td class="text-black">
-              <span class="badge badge-success rounded-pill d-inline ">Active</span>
+          <td class="bool-value"><%- lamp.active %>  
+              <span>Active</span>
             </td>
             <td>
               <button type="button" class="btn btn-link btn-sm btn-rounded">
@@ -68,3 +70,5 @@
   </div>
 
   <%- include('./partials/footer') %>
+
+  
