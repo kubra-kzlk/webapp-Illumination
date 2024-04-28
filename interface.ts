@@ -1,5 +1,5 @@
 //Mk n apart bstnd aan wrin je de i. defi vr de data die je hebt aangmkt.
-//Zorg ervr dat alle i. zn geexp zdt je ze kan gebruiken in andere bestanden.
+//Zorg ervr dat alle i. zn geexpo zdt je ze kan gebruiken in andere bestanden.
 export interface Lamp {
   id: number;
   naam: string;
@@ -15,8 +15,9 @@ export interface Lamp {
 
 export interface Fabrikant {
   id: number;
+  foto: string;
   naam: string;
   adres: string;
   telefoon: string;
   website: string;
-};
+}

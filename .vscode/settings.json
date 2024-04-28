@@ -1,4 +1,36 @@
 {
   "liveServer.settings.port": 5501,
-  "peacock.color": "#007fff"
+  "peacock.color": "#007fff",
+
+  "prettier.arrowParens": "avoid",
+"prettier.bracketSpacing": true,
+"prettier.endOfLine": "lf",
+"prettier.htmlWhitespaceSensitivity": "css",
+"prettier.insertPragma": false,
+"prettier.jsxBracketSameLine": false,
+"prettier.jsxSingleQuote": false,
+"prettier.printWidth": 80,
+"prettier.proseWrap": "preserve",
+"prettier.quoteProps": "as-needed",
+"prettier.requirePragma": false,
+"prettier.semi": true,
+"prettier.singleQuote": true,
+"prettier.tabWidth": 2,
+"prettier.trailingComma": "es5",
+"prettier.useTabs": false,
+"prettier.vueIndentScriptAndStyle": false,
+"prettier.embeddedLanguageFormatting": "auto",
+"editor.defaultFormatter": "esbenp.prettier-vscode",
+"[javascript]": {
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
+},
+"[javascriptreact]": {
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
+},
+"[typescript]": {
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
+},
+"[typescriptreact]": {
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
+}
 }
