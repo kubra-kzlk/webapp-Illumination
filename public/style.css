@@ -1,27 +1,10 @@
-.bool-value:after {
-  content: '';
-  display: block;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  margin: 0 auto;
+
+.red {
+  color: red;
 }
 
-.bool-value.true:after {
-  background-color: green;
-}
-
-.bool-value.false:after {
-  background-color: red;
-}
-
-.bd-placeholder-img {
-  font-size: 1.125rem;
-  text-anchor: middle;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+.green {
+  color: green;
 }
 
 @media (min-width: 768px) {
@@ -101,18 +84,4 @@
     flex: 1;
   }
 }
-/*green red dot when true or false in table lamp.actief*/
-.dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: black;
-}
 
-.active-dot {
-  background-color: green;
-}
-
-.inactive-dot {
-  background-color: red;
-}

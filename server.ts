@@ -10,6 +10,7 @@ app.set('view engine', 'ejs'); // EJS als view engine
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public')); //tell express to serve the content of public dir, the express.static middleware is used to serve static files from the public directory. The middleware should be added before any other routes or middleware.
+app.use(express.static('public', { extensions: ['html'] }));
 app.set('port', 3000);
 
 // Parse JSON data
@@ -110,6 +111,14 @@ app.get('/lamps', async (req, res) => {
     sortField: sortField,
     sortDirection: sortDirection,
     searchQuery,
+  });
+});
+
+app.get('/lampDetail/:id', async (req, res) => {
+  const id = req.params.id;
+  const lamp = lampsData.find(lamp => lamp.id === parseInt(id));
+  res.render('lampDetail', {
+    lampDetails: lamp,
   });
 });
 
