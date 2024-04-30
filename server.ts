@@ -1,10 +1,11 @@
 import express, { Express } from 'express';
-import { Lamp } from './interface';
-import { Fabrikant } from './interface';
+import { Lamp,Fabrikant  } from './interface';
 import { connectToDatabase } from './database';
+import dotenv from 'dotenv';
+import path from "path";
 
 const app: Express = express();
-
+dotenv.config();
 app.set('view engine', 'ejs'); // EJS als view engine
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -149,7 +150,6 @@ async function main() {
     await connectToDatabase();
     console.log('Connected to MongoDB Atlas from index.ts!');
 
-    // Perform your database operations here (if needed in index.ts)
   } catch (error) {
     console.error(error);
   }
