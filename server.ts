@@ -113,13 +113,16 @@ app.get('/lamps', async (req, res) => {
   });
 });
 
-app.get('/lampDetail/:id', async (req, res) => {
-  const id = req.params.id;
-  const lamp = lampsData.find(lamp => lamp.id === parseInt(id));
-  console.log(lamp);
-  res.render('lampDetail', {
-    lamp: lampsData,
-  });
+app.get('/lampDetail/:id',  (req, res) => {
+  const id = parseInt( req.params.id);
+  const lamp = lampsData.find(l => l.id ===id);
+  if(lamp){
+    res.render('lampDetail', {
+      lamp: lamp,
+    });
+  }else{
+    res.status(404).send('Geen lamp gevonden')
+  }
 });
 
 app.get('/fabrics', async (req, res) => {
@@ -128,10 +131,16 @@ app.get('/fabrics', async (req, res) => {
   });
 });
 
-app.get('/fabricDetail/:id', async (req, res) => {
-  res.render('fabricDetail', {
-    fabrics: fabricsData,
-  });
+app.get('/fabricDetail/:id',  (req, res) => {
+  const id = parseInt( req.params.id);
+  const fabric = fabricsData.find(f => f.id ===id);
+  if(fabric){
+    res.render('fabricDetail', {
+      fabric: fabric,
+    });
+  }else{
+    res.status(404).send('Geen lamp gevonden')
+  }
 });
 
 // Database MongoDB

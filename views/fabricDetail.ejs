@@ -1,21 +1,20 @@
 <%- include('./partials/header') %>
 <main>
-  <%for(let i=0; i< fabrics.length; i++) { %>
   <div class="card border-light mb-5" style="max-width: 1500px;">
     <div class="row g-0">
       
       <div class="col-md-4 text-center">
-        <img src="<%- fabrics[i].foto %>" class="img-fluid rounded"  alt="image"
+        <img src="<%- fabric.foto %>" class="img-fluid rounded"  alt="image"
         style="width:300px; height: 300px" />
       </div>
       <div class="col-md-8">
         <div class="card-body">
-          <h5 class="card-title"><%- fabrics[i].naam %> </h5>
+          <h5 class="card-title"><%- fabric.naam %> </h5>
           <p class="card-text"></p>
-          <p class="card-text">&#x1F194; <%- fabrics[i].id %></p>
-          <p class="card-text">&#x1F3E3; <%- fabrics[i].adres %></p>
-          <p class="card-text">&#9742; <%- fabrics[i].telefoon %></p>
-          <p class="card-text">&#x1F310; <%- fabrics[i].website %></p>
+          <p class="card-text">&#x1F194; <%- fabric.id %></p>
+          <p class="card-text">&#x1F3E3; <%- fabric.adres %></p>
+          <p class="card-text">&#9742; <%- fabric.telefoon %></p>
+          <p class="card-text">&#x1F310; <%- fabric.website %></p>
           
         </div>
         <div class="card-body">
@@ -24,6 +23,5 @@
       </div>
     </div>
   </div>
-  <% } %>
 </main>
 <%- include('./partials/footer') %>

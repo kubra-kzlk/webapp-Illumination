@@ -1,7 +1,7 @@
 const { MongoClient } = require('mongodb');
 
 const uri =
-  'mongodb+srv://<username>:<wachtwoord>@wpl-project.1v5hog1.mongodb.net/'; //verander username en wachtwoord
+  'mongodb+srv://flowerpowerrr33:flowerpower@webontw.xhfyyfc.mongodb.net/'; //verander username en wachtwoord
 const client = new MongoClient(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,

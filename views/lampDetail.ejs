@@ -1,35 +1,34 @@
 <%- include('./partials/header') %>
 <main>  
-  <%for(let i=0; i< lamp.length; i++) { %>
   <div class="card border-light mb-5" style="max-width: 1500px;">
     <div class="row g-0">      
       <div class="col-md-4 text-center">
        
-        <img src="<%- lamp[i].foto %>" class="img-fluid rounded"  alt="image"
+        <img src="<%- lamp.foto %>" class="img-fluid rounded"  alt="image"
         style="width: 400px; height: 400px"/>
       </div>
       <div class="col-md-8">
         <div class="card-body">
-          <h5 class="card-title"><%- lamp[i].naam %></h5>
+          <h5 class="card-title"><%- lamp.naam %></h5>
           <hr>
-          <p class="card-text"><%- lamp[i].beschrijving %></p>         
-          <p class="card-text">&#x1F194; &nbsp; <%- lamp[i].id %></p>
-          <p class="card-text">&#x1F4C5; &nbsp;<%- lamp[i].datum %></p>
+          <p class="card-text"><%- lamp.beschrijving %></p>         
+          <p class="card-text">&#x1F194; &nbsp; <%- lamp.id %></p>
+          <p class="card-text">&#x1F4C5; &nbsp;<%- lamp.datum %></p>
           <p class="card-text">
-            &#x1F4A1;&nbsp;<%- lamp[i].stijlen %>
+            &#x1F4A1;&nbsp;<%- lamp.stijlen %>
           </p>
           <p class="card-text">
-            &#x1F4B2;&nbsp; &#8364; <%- lamp[i].prijs %>
+            &#x1F4B2;&nbsp; &#8364; <%- lamp.prijs %>
           </p>
           <p class="card-text">
-            &#x1F3A8;&nbsp; <%- lamp[i].kleur %>
+            &#x1F3A8;&nbsp; <%- lamp.kleur %>
           </p>
           <p class="card-text">
             <small class="text-body-secondary"
               >&#x2713;&nbsp;</small
             >
             <svg width="10" height="10">
-              <circle cx="5" cy="5" r="5" fill="<%= lamp[i].actief ? 'green' : 'red' %>" />
+              <circle cx="5" cy="5" r="5" fill="<%= lamp.actief ? 'green' : 'red' %>" />
             </svg>
           </p>
         </div>
@@ -39,6 +38,5 @@
       </div>
     </div>
   </div>
-  <% } %>
 </main>
 <%- include('./partials/footer') %>
