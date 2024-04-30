@@ -1,8 +1,7 @@
 import express, { Express } from 'express';
 import { Lamp } from './interface';
 import { Fabrikant } from './interface';
-
-//import { connectToDatabase } from './database';
+import { connectToDatabase } from './database';
 
 const app: Express = express();
 
@@ -129,17 +128,14 @@ app.get('/fabrics', async (req, res) => {
   });
 });
 
-
-
 app.get('/fabricDetail/:id', async (req, res) => {
   res.render('fabricDetail', {
     fabrics: fabricsData,
   });
 });
 
-// Database // MongoDB
-
-/*async function main() {
+// Database MongoDB
+async function main() {
   try {
     await connectToDatabase();
     console.log('Connected to MongoDB Atlas from index.ts!');
@@ -148,7 +144,7 @@ app.get('/fabricDetail/:id', async (req, res) => {
   } catch (error) {
     console.error(error);
   }
-}*/
+}
 
 //start server
 app.listen(app.get('port'), async () => {
