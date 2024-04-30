@@ -1,11 +1,4 @@
 
-.red {
-  color: red;
-}
-
-.green {
-  color: green;
-}
 
 @media (min-width: 768px) {
   .bd-placeholder-img-lg {
@@ -36,10 +29,6 @@
   color: #fff;
   text-decoration: none;
 }
-
-/*
- * Dummy devices (replace them with your own or something else entirely!)
- */
 
 .product-device {
   position: absolute;
@@ -84,4 +73,3 @@
     flex: 1;
   }
 }
-

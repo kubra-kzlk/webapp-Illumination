@@ -117,8 +117,9 @@ app.get('/lamps', async (req, res) => {
 app.get('/lampDetail/:id', async (req, res) => {
   const id = req.params.id;
   const lamp = lampsData.find(lamp => lamp.id === parseInt(id));
+  console.log(lamp);
   res.render('lampDetail', {
-    lampDetails: lamp,
+    lamp: lampsData,
   });
 });
 
@@ -128,13 +129,9 @@ app.get('/fabrics', async (req, res) => {
   });
 });
 
-app.get('/lampDetail', async (req, res) => {
-  res.render('lampDetail', {
-    lampDetails: lampsData,
-  });
-});
 
-app.get('/fabricDetail', async (req, res) => {
+
+app.get('/fabricDetail/:id', async (req, res) => {
   res.render('fabricDetail', {
     fabrics: fabricsData,
   });

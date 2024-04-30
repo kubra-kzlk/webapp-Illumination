@@ -4,6 +4,7 @@
     <table class="table align-middle mb-0 bg-white table-hover">
       <thead class="bg-light">
         <tr>
+          <th> </th>
           <th>naam</th>          
           <th>adres</th>
           <th>telefoon</th>
@@ -17,15 +18,16 @@
             <div class="d-flex align-items-center">
               <img
                 src="<%- fabric.foto %>"
-                alt="image"
+                alt="image" class="rounded"
                 style="width: 80px; height: 80px"
               />
-              <%- fabric.naam %>
+              
             </div>
           </td>
-          <td ><%- fabric.adres %></td>
-          <td><%- fabric.telefoon %></td>
-          <td><%- fabric.website %></td>
+          <td > <a href="/fabricDetail/<%= fabric.id %>" ><%- fabric.naam %> </a></td>
+          <td >&#x1F3E3;<%- fabric.adres %></td>
+          <td>&#9742; <%- fabric.telefoon %></td>
+          <td>&#x1F310;<%- fabric.website %></td>
         </tr>
         <% }) %>
       </tbody>

@@ -1,29 +1,44 @@
 <%- include('./partials/header') %>
-<main>
-  <%for(let i=0; i< lampDetails.length; i++) { %>
-<div class="card" style="max-width: 540px;">
-  
-  <div class="row g-0">
-    <div class="col-md-4  text-center ">
-      <img src="<%- lampDetails[i].foto %>" class="img-fluid " >
-    </div>
-    <div class="col-md-8">
-      <div class="card-body">
-        <h5 class="card-title"><%- lampDetails[i].naam %> &#9728;</h5>
-        <p class="card-text"></p>
-        <p class="card-text"><strong>prijs:</strong>&nbsp; &#8364; <%- lampDetails[i].prijs %></p>
-        <p class="card-text"><strong>kleur:</strong>&nbsp;  <%- lampDetails[i].kleur %></p>
-        <p class="card-text"><small class="text-body-secondary"><strong>beschikbaar:
-
-        </strong>&nbsp;  <%- lampDetails[i].actief %></small></p>
+<main>  
+  <%for(let i=0; i< lamp.length; i++) { %>
+  <div class="card border-light mb-5" style="max-width: 1500px;">
+    <div class="row g-0">      
+      <div class="col-md-4 text-center">
+       
+        <img src="<%- lamp[i].foto %>" class="img-fluid rounded"  alt="image"
+        style="width: 400px; height: 400px"/>
       </div>
-      <div class="card-body">
-        <a href="/lamps" class="card-link">Ga terug naar de lijst</a>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title"><%- lamp[i].naam %></h5>
+          <hr>
+          <p class="card-text"><%- lamp[i].beschrijving %></p>         
+          <p class="card-text">&#x1F194; &nbsp; <%- lamp[i].id %></p>
+          <p class="card-text">&#x1F4C5; &nbsp;<%- lamp[i].datum %></p>
+          <p class="card-text">
+            &#x1F4A1;&nbsp;<%- lamp[i].stijlen %>
+          </p>
+          <p class="card-text">
+            &#x1F4B2;&nbsp; &#8364; <%- lamp[i].prijs %>
+          </p>
+          <p class="card-text">
+            &#x1F3A8;&nbsp; <%- lamp[i].kleur %>
+          </p>
+          <p class="card-text">
+            <small class="text-body-secondary"
+              >&#x2713;&nbsp;</small
+            >
+            <svg width="10" height="10">
+              <circle cx="5" cy="5" r="5" fill="<%= lamp[i].actief ? 'green' : 'red' %>" />
+            </svg>
+          </p>
+        </div>
+        <div class="card-body">
+          <a href="/lamps" class="card-link">&#x2190;Ga terug naar de lijst</a>
+        </div>
       </div>
     </div>
   </div>
-</div>
-<% } %>
+  <% } %>
 </main>
 <%- include('./partials/footer') %>
-
