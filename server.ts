@@ -4,14 +4,16 @@ import { connectToDatabase } from './database';
 import dotenv from 'dotenv';
 import path from "path";
 
-const app: Express = express();
-dotenv.config();
-app.set('view engine', 'ejs'); // EJS als view engine
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static('public')); //tell express to serve the content of public dir, the express.static middleware is used to serve static files from the public directory. The middleware should be added before any other routes or middleware.
-app.use(express.static('public', { extensions: ['html'] }));
-app.set('port', 3000);
+const app: Express = express();// Get the default connection
+
+dotenv.config(); // Load environment variables from .env file
+app.set('view engine', 'ejs'); // EJS als view engine, Set the view engine for the app
+app.use(express.json());// Parse JSON bodies for this app
+app.use(express.urlencoded({ extended: true }));// Parse URL-encoded bodies for this app
+app.use(express.static('public', { extensions: ['html'] }));// Serve static files from the 'public' directory. tell express to serve the content of public dir, the express.static middleware is used to serve static files from the public directory. The middleware should be added before any other routes or middleware.
+app.set('views', path.join(__dirname, 'views'));// Set the views directory for the app
+app.set('port', 3000);// Set the port for the app
+
 
 // Parse JSON data
 let lampsData: Lamp[] = [];
@@ -19,6 +21,16 @@ let fabricsData: Fabrikant[] = [];
 
 app.get('/', async (req, res) => {
   res.render('index');
+});
+
+/* Als route niet bestaat */
+app.use((_, res) => {
+  res.type('text/html');
+  res.status(404).render('404');
+});
+
+app.get("/register-success", (req, res) => {
+  res.render("register-success");
 });
 
 app.get('/lamps', async (req, res) => {

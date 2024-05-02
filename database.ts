@@ -1,13 +1,15 @@
-import { Lamp } from "./interface";
+import { Lamp, Fabrikant } from "./interface";
+import { Collection, MongoClient, MongoClientOptions, ObjectId } from "mongodb";
+import dotenv from "dotenv";
 
-const { MongoClient } = require('mongodb');
-
-const uri =
+dotenv.config();
+export const uri =
   'mongodb+srv://flowerpowerrr33:flowerpower@webontw.xhfyyfc.mongodb.net/'; //verander username en wachtwoord
-const client = new MongoClient(uri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+export const client = new MongoClient(process.env.MONGODB_URI || "mongodb://localhost:27017");
+
+
+
+
 
 async function loadLampsToDatabase() {
   let lamp = await lampCollection.find({}).toArray();
