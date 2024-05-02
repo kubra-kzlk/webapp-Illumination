@@ -1,23 +1,80 @@
-<!--updata button-->
 <%- include('./partials/header') %>
-    <main>
-        <div class="container">
-            <h1>Pas een lamp &#9728; aan </h1>
-            <form method="POST" action="/submit">
+<main>
+  <div class="container">
+    
+    <h1 style="margin-top: 50px; text-align: center;">Pas een lamp &#9728; aan</h1>
+    <div class="card border-light mb-5" style="max-width: 1500px;">
+        <div class="row g-0">
+          <div class="col-md-4 text-center">
+            <img src="<%- lamp.foto %>" class="img-fluid rounded" alt="image" style="width: 400px; height: 400px" />
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">              
+              <p class="card-text">&#x1F194; &nbsp; <%- lamp.id %></p>
+              <form method="POST" action="/submit">
+                <!--<div class="form-group">
+                              <label for="name">Naam</label>
+                              <input type="text" class="form-control" id="name" placeholder="Enter your name">
+                          </div>
+                          <div class="form-group">
+                              <label for="stijl">stijl</label>
+                              <input type="stijl" class="form-control" id="stijl" placeholder="Enter your email">
+                          </div>
+                          <div class="form-group">
+                              <label for="beschrijving">beschrijving</label>
+                              <textarea class="form-control" id="beschrijving" rows="3" placeholder="Enter your message"></textarea>
+                          </div>
+                          <div class="form-group">
+                              <label for="kleur">kleur</label>
+                              <input type="kleur" class="form-control" id="kleur" placeholder="Enter your email">
+                          </div>
+                          <div class="form-group">
+                              <label for="message">message</label>                    
+                              <textarea class="form-control" id="message" rows="3" placeholder="Enter your message"></textarea>
+                          </div>
+                          <button type="submit" class="btn btn-primary">Submit</button>-->
+                <label for="name">Naam:</label>
+                <input
+                  type="text"
+                  id="name"
+                  class="form-control"
+                  name="name"
+                /><br /><br />
+            
+                <!-- Keuzelijstveld -->
+                <label for="kleur">Kleur:</label>
+                <select id="kleur" name="kleur" class="form-control">
+                  <option value="male">Man</option>
+                  <option value="female">Vrouw</option>
+                  <option value="other">Anders</option></select
+                ><br /><br />
+            
+                <!-- Radioknopvelden -->
+                <label>Actief:</label><br />
+                <input type="radio" id="ja" name="option" value="ja" />
+                <label for="ja">Ja</label><br />
+                <input type="radio" id="nee" name="option" value="nee" />
+                <label for="nee">Nee</label><br /><br />
+            
                 <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" class="form-control" id="name" placeholder="Enter your name">
+                  <label for="beschrijving">Beschrijving:</label>
+                  <textarea
+                    class="form-control"
+                    id="beschrijving"
+                    rows="3"
+                    placeholder="beschrijving"
+                  ></textarea>
                 </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" class="form-control" id="email" placeholder="Enter your email">
-                </div>
-                <div class="form-group">
-                    <label for="message">Message</label>
-                    <textarea class="form-control" id="message" rows="3" placeholder="Enter your message"></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
+            
+                <input type="submit" value="Update" class="btn btn-primary" />
+              </form>
+            </div>
+            
+          </div>
         </div>
-    </main>
-    <%- include('./partials/footer') %>
+      </div>
+     
+    
+  </div>
+</main>
+<%- include('./partials/footer') %>
