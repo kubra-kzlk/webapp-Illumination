@@ -1,4 +1,4 @@
-import { Lamp, Fabrikant } from "./interface";
+/*import { Lamp, Fabrikant } from "./interface";
 import { Collection, MongoClient, MongoClientOptions, ObjectId } from "mongodb";
 import dotenv from "dotenv";
 
@@ -42,9 +42,9 @@ async function loadLampsToDatabase() {
     lampsData = lamps;
   } catch (error) {
     console.error(error);
-  }*/
-}
-
+  }
+}*/
+/*
 async function exit() {
   try {
     await client.close();
@@ -68,3 +68,4 @@ export async function connectToDatabase() {
     throw err;
   }
 }
+*/

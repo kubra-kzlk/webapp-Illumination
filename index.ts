@@ -1,8 +1,12 @@
 import express, { Express } from 'express';
-import { Lamp,Fabrikant  } from './interface';
-import { connectToDatabase } from './database';
+import { Lamp, Fabrikant } from './interface';
+import { MongoClient } from 'mongodb';
 import dotenv from 'dotenv';
 import path from "path";
+
+export const uri =
+  'mongodb+srv://flowerpowerrr33:flowerpower@webontw.xhfyyfc.mongodb.net/'; //verander username en wachtwoord
+export const client = new MongoClient(uri);
 
 const app: Express = express();// Get the default connection
 
@@ -23,11 +27,6 @@ app.get('/', async (req, res) => {
   res.render('index');
 });
 
-/* Als route niet bestaat */
-app.use((_, res) => {
-  res.type('text/html');
-  res.status(404).render('404');
-});
 
 app.get("/register-success", (req, res) => {
   res.render("register-success");
@@ -126,14 +125,14 @@ app.get('/lamps', async (req, res) => {
   });
 });
 
-app.get('/lampDetail/:id',  (req, res) => {
-  const id = parseInt( req.params.id);
-  const lamp = lampsData.find(l => l.id ===id);
-  if(lamp){
+app.get('/lampDetail/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  const lamp = lampsData.find(l => l.id === id);
+  if (lamp) {
     res.render('lampDetail', {
       lamp: lamp,
     });
-  }else{
+  } else {
     res.status(404).send('Geen lamp gevonden')
   }
 });
@@ -144,46 +143,71 @@ app.get('/fabrics', async (req, res) => {
   });
 });
 
-app.get('/fabricDetail/:id',  (req, res) => {
-  const id = parseInt( req.params.id);
-  const fabric = fabricsData.find(f => f.id ===id);
-  if(fabric){
+app.get('/fabricDetail/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  const fabric = fabricsData.find(f => f.id === id);
+  if (fabric) {
     res.render('fabricDetail', {
       fabric: fabric,
     });
-  }else{
+  } else {
     res.status(404).send('Geen lamp gevonden')
+  }
+});
+
+app.get('/lampEdit/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  const lamp = lampsData.find(l => l.id === id);
+  if (lamp) {
+    res.render('lampEdit', {
+      lamp: lamp,
+    });
+  } else {
+    res.status(404).send('geen lamp gevonden')
   }
 });
 
 // Database MongoDB
 async function main() {
   try {
-    await connectToDatabase();
+    await client.connect();
     console.log('Connected to MongoDB Atlas from index.ts!');
+    const db = client.db("db_lamps");
+    //controleren of collectie leeg is of niet
+    const lampsCheck = await db.collection("Lamps").findOne({});
+    const fabrikantCheck = await db.collection("Fabrikant").findOne({});
+
+    if (!lampsCheck) {
+      //deel 3: Data naar MongoDB schrijven
+      //fetch from API
+      const lampResponse = await fetch('https://raw.githubusercontent.com/kubra-kzlk/lamps/main/lamps.json');
+      const lampsdata = await lampResponse.json();
+      lampsData.push(...lampsdata);
+
+      await db.collection("Lamps").insertMany(lampsdata); //json van github nr mongodb schrijven
+    }
+    if (!fabrikantCheck) {
+      const fabrikantResponse = await fetch('https://raw.githubusercontent.com/kubra-kzlk/lamps/main/fabrikant.json');
+      const fabrikantdata = await fabrikantResponse.json();
+      fabricsData.push(...fabrikantdata);
+      //objecten nr db toevoegen
+      await db.collection("Fabrikant").insertMany(fabrikantdata);
+    }
+    //deel 3:Data ophalen uit MongoDB
+    //fetch from db
+    lampsData = await db.collection("Lamps").find<Lamp>({}).toArray();
+    fabricsData = await db.collection("Fabrikant").find<Fabrikant>({}).toArray();
+
+    //start server
+    app.listen(app.get('port'), async () => {
+      console.log('[server] http://localhost:' + app.get('port'));
+    });
 
   } catch (error) {
     console.error(error);
   }
 }
+main();
 
-//start server
-app.listen(app.get('port'), async () => {
-  const lampResponse = await fetch(
-    'https://raw.githubusercontent.com/kubra-kzlk/lamps/main/lamps.json'
-  );
-  const data = await lampResponse.json();
-  data.forEach((lamp: Lamp) => {
-    lampsData.push(lamp);
-  });
 
-  const fabricResponse = await fetch(
-    'https://raw.githubusercontent.com/kubra-kzlk/lamps/main/fabrikant.json'
-  );
-  const fabricdata = await fabricResponse.json();
-  fabricdata.forEach((fabric: Fabrikant) => {
-    fabricsData.push(fabric);
-  });
 
-  console.log('[server] http://localhost:' + app.get('port'));
-});

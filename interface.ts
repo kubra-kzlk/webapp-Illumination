@@ -4,6 +4,7 @@ import { ObjectId } from "mongodb";
 //Zorg ervr dat alle i. zn geexpo zdt je ze kan gebruiken in andere bestanden.
 export interface Lamp {
   _id?: ObjectId;
+  id: number;
   naam: string;
   beschrijving: string;
   prijs: number;
@@ -17,6 +18,7 @@ export interface Lamp {
 
 export interface Fabrikant {
   _id?: ObjectId;
+  id: number;
   foto: string;
   naam: string;
   adres: string;
