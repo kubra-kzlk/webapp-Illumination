@@ -1,27 +1,26 @@
 <%- include('./partials/header') %>
-<main>
-  <div class="card border-light mb-5" style="max-width: 1500px;">
-    <div class="row g-0">
-      
-      <div class="col-md-4 text-center">
-        <img src="<%- fabric.foto %>" class="img-fluid rounded"  alt="image"
-        style="width:300px; height: 300px" />
-      </div>
-      <div class="col-md-8">
-        <div class="card-body">
-          <h5 class="card-title"><%- fabric.naam %> </h5>
-          <p class="card-text"></p>
-          <p class="card-text">&#x1F194; <%- fabric.id %></p>
-          <p class="card-text">&#x1F3E3; <%- fabric.adres %></p>
-          <p class="card-text">&#9742; <%- fabric.telefoon %></p>
-          <p class="card-text">&#x1F310; <%- fabric.website %></p>
-          
+  <main>
+    <div class="card border-light mb-5" style="max-width: 1500px;">
+      <div class="row g-0">
+
+        <div class="col-md-4 text-center">
+          <img src="<%- fabric.foto %>" class="img-fluid rounded" alt="image" style="width:300px; height: 300px" />
         </div>
-        <div class="card-body">
-          <a href="/fabrics" class="card-link">&#x2190; Ga terug naar de lijst</a>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h1 class="card-title"><%- fabric.naam %> </h1>
+            <p class="card-text"></p>
+            <p class="card-text">&#x1F194; <%- fabric.id %></p>
+            <p class="card-text">&#x1F3E3; <%- fabric.adres %></p>
+            <p class="card-text">&#9742; <%- fabric.telefoon %></p>
+            <p class="card-text">&#x1F310; <%- fabric.website %></p>
+
+          </div>
+          <div class="card-body">
+            <a href="/fabrics" class="card-link">&#x2190; Ga terug naar de lijst</a>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</main>
-<%- include('./partials/footer') %>
+  </main>
+  <%- include('./partials/footer') %>

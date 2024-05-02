@@ -1,4 +1,6 @@
-
+h1{
+  margin-top: 50px;
+}
 
 @media (min-width: 768px) {
   .bd-placeholder-img-lg {
@@ -10,9 +12,6 @@
   max-width: 960px;
 }
 
-/*
- * Custom translucent site header
- */
 
 .site-header {
   background-color: rgba(0, 0, 0, 0.85);
@@ -60,9 +59,6 @@
   background-color: #e5e5e5;
 }
 
-/*
- * Extra utilities
- */
 
 .flex-equal > * {
   flex: 1;
