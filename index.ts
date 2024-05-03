@@ -1,8 +1,10 @@
 import express, { Express } from 'express';
-import { Lamp, Fabrikant } from './interface';
+import { Lamp, Fabrikant } from './types';
 import { MongoClient } from 'mongodb';
 import dotenv from 'dotenv';
 import path from "path";
+import { create } from 'domain';
+import { connect } from 'http2';
 
 export const uri =
   'mongodb+srv://flowerpowerrr33:flowerpower@webontw.xhfyyfc.mongodb.net/'; //verander username en wachtwoord
@@ -167,8 +169,21 @@ app.get('/lampEdit/:id', (req, res) => {
   }
 });
 
+//deel 3
+app.post("/lampEdit/:id", async (req, res) => {
+  let ja : boolean = req.body.ja;
+  let nee : boolean = req.body.nee;
+  let prijs : number = req.body.prijs;
+  let kleur : string = req.body.kleur;
+  let beschrijving : string = req.body.beschrijving;
+
+  await createLamp({ja, nee, prijs, kleur,
+     beschrijving});
+  res.redirect("/lampEdit/:id");
+});
+
 // Database MongoDB
-async function main() {
+async function connect() {
   try {
     await client.connect();
     console.log('Connected to MongoDB Atlas from index.ts!');
@@ -200,16 +215,17 @@ async function main() {
     lampsData = await db.collection("Lamps").find<Lamp>({}).toArray();
     fabricsData = await db.collection("Fabrikant").find<Fabrikant>({}).toArray();
 
-    //start server
-    app.listen(app.get('port'), async () => {
-      console.log('[server] http://localhost:' + app.get('port'));
-    });
+ 
 
   } catch (error) {
     console.error(error);
   }
 }
-main();
 
 
 
+   //start server
+    app.listen(app.get('port'), async () => {
+      await connect();
+      console.log('Server started on http://localhost:' + app.get('port'));
+    });

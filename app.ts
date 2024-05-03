@@ -1,6 +1,6 @@
 import axios from "axios";
 import * as readline from "readline-sync";
-import { Lamp } from "./interface";
+import { Lamp } from "./types";
 
 const sunPattern: string[] = [
   "      *       ",
