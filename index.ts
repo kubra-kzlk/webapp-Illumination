@@ -3,8 +3,6 @@ import { Lamp, Fabrikant } from './types';
 import { MongoClient } from 'mongodb';
 import dotenv from 'dotenv';
 import path from "path";
-import { create } from 'domain';
-import { connect } from 'http2';
 
 export const uri =
   'mongodb+srv://flowerpowerrr33:flowerpower@webontw.xhfyyfc.mongodb.net/'; //verander username en wachtwoord
@@ -171,19 +169,27 @@ app.get('/lampEdit/:id', (req, res) => {
 
 //deel 3
 app.post("/lampEdit/:id", async (req, res) => {
-  let ja : boolean = req.body.ja;
-  let nee : boolean = req.body.nee;
-  let prijs : number = req.body.prijs;
-  let kleur : string = req.body.kleur;
-  let beschrijving : string = req.body.beschrijving;
+  const lamp = lampsData.find(l => l.id === parseInt(req.params.id));
+  if (lamp) {
+    let actief: boolean = req.body.actief;
+    let prijs: number = req.body.prijs;
+    let kleur: string = req.body.kleur;
+    let beschrijving: string = req.body.beschrijving;
 
-  await createLamp({ja, nee, prijs, kleur,
-     beschrijving});
+    await client.db("db_lamps").collection("Lamps").updateOne(
+      { id: lamp.id }, { $set: lamp });
+  }
   res.redirect("/lampEdit/:id");
 });
 
+
+// Parse JSON data
+let lampsList: Lamp[] = [];
+let fabricsList: Fabrikant[] = [];
+export async function updateLamp(l: Lamp) { }
+
 // Database MongoDB
-async function connect() {
+export async function connect() {
   try {
     await client.connect();
     console.log('Connected to MongoDB Atlas from index.ts!');
@@ -214,18 +220,14 @@ async function connect() {
     //fetch from db
     lampsData = await db.collection("Lamps").find<Lamp>({}).toArray();
     fabricsData = await db.collection("Fabrikant").find<Fabrikant>({}).toArray();
-
- 
-
+    return { lampsList, fabricsList };
   } catch (error) {
     console.error(error);
   }
 }
 
-
-
-   //start server
-    app.listen(app.get('port'), async () => {
-      await connect();
-      console.log('Server started on http://localhost:' + app.get('port'));
-    });
+//start server
+app.listen(app.get('port'), async () => {
+  await connect();
+  console.log('Server started on http://localhost:' + app.get('port'));
+});

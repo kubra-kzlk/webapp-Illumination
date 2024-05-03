@@ -1,82 +1,44 @@
 <%- include('./partials/header') %>
-<main style="margin-top: 50px">
-  <div class="card border-light mb-5" style="max-width: 1500px">
+  <main style="margin-top: 50px">
     <div class="card border-light mb-5" style="max-width: 1500px">
-      <div class="row g-0">
-        <div class="col-md-4 text-center">
-          <img
-            src="<%- lamp.foto %>"
-            class="img-fluid rounded"
-            alt="image"
-            style="width: 300px; height: 300px"
-          />
-        </div>
-        <div class="col-md-8">
-          <div class="card-body">
-            <form method="POST" action="/">
-              <h1 class="card-title"><%- lamp.naam %></h1>
-              <p class="card-text">&#x1F194; &nbsp; <%- lamp.id %></p>
-              <!-- Radioknopvelden -->
-              <label>Actief:</label>
-              <input type="radio" id="ja" name="ja" value="ja" />
-              <label for="ja">Ja</label>
-              <input type="radio" id="nee" name="nee" value="nee" />
-              <label for="nee">Nee</label></br>
-              <!--<div class="form-group">
-                              <label for="name">Naam</label>
-                              <input type="text" class="form-control" id="name" placeholder="Enter your name">
-                          </div>
-                          <div class="form-group">
-                              <label for="stijl">stijl</label>
-                              <input type="stijl" class="form-control" id="stijl" placeholder="Enter your email">
-                          </div>
-                          <div class="form-group">
-                              <label for="beschrijving">beschrijving</label>
-                              <textarea class="form-control" id="beschrijving" rows="3" placeholder="Enter your message"></textarea>
-                          </div>
-                          <div class="form-group">
-                              <label for="kleur">kleur</label>
-                              <input type="kleur" class="form-control" id="kleur" placeholder="Enter your email">
-                          </div>
-                          <div class="form-group">
-                              <label for="message">message</label>                    
-                              <textarea class="form-control" id="message" rows="3" placeholder="Enter your message"></textarea>
-                          </div>
-                          <button type="submit" class="btn btn-primary">Submit</button>-->
-              <label for="prijs">Prijs in &#8364; :</label>
-              <input type="number" id="prijs" class="form-control" name="prijs"  step="0.01" min="0" required  />
-              <!-- Keuzelijstveld -->
-              <label for="kleur">Kleur:</label>
-              <select id="kleur" name="kleur" class="form-control">
-                <option value="male">Man</option>
-                <option value="female">Vrouw</option>
-                <option value="other">Anders</option>
-              </select></br>
-              <div class="form-group">
-                <label for="beschrijving">Beschrijving:</label>
-                <textarea
-                  class="form-control"
-                  id="beschrijving"
-                  rows="3"
-                  placeholder="beschrijving"
-                ></textarea>
-              </div>
-              <input type="submit" value="Update" class="btn btn-primary" />
-            </form>
-            <!--aangemaakte product displayen-->
-            <ul>
-              <% for (let entry of guestbookEntries) { %>
-                  <li>
-                      <h2><%= entry.name %></h2>
-                      <p><%= entry.message %></p>
-                      <p>Posted on <%= formatDate(entry.date) %></p>
-                  </li>
-              <% } %> 
-          </ul>
+      <div class="card border-light mb-5" style="max-width: 1500px">
+        <div class="row g-0">
+          <div class="col-md-4 text-center">
+            <img src="<%- lamp.foto %>" class="img-fluid rounded" alt="image" style="width: 300px; height: 300px" />
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <form method="POST" action="/">
+                <h1 class="card-title"><%- lamp.naam %></h1>
+                <p class="card-text">&#x1F194; &nbsp; <%- lamp.id %></p>
+                <!-- Radioknopvelden -->
+                <label>Actief:</label>
+                <input type="radio" id="ja" name="actief" value="ja" />
+                <label for="ja">Ja</label>
+                <input type="radio" id="nee" name="actief" value="nee" />
+                <label for="nee">Nee</label></br>
+
+                <label for="prijs">Prijs in &#8364; :</label>
+                <input type="number" id="prijs" class="form-control" name="prijs" step="0.01" min="0" required />
+                <!-- Keuzelijstveld -->
+                <label for="kleur">Kleur:</label>
+                <select id="kleur" name="kleur" class="form-control">
+                  <option value="male">Man</option>
+                  <option value="female">Vrouw</option>
+                  <option value="other">Anders</option>
+                </select></br>
+                <div class="form-group">
+                  <label for="beschrijving">Beschrijving:</label>
+                  <textarea class="form-control" id="beschrijving" rows="3" placeholder="beschrijving"></textarea>
+                </div>
+                <input type="submit" value="Update" class="btn btn-primary" />
+              </form>
+              <!--aangemaakte product displayen-->
+
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</main>
-<%- include('./partials/footer') %>
+  </main>
+  <%- include('./partials/footer') %>
