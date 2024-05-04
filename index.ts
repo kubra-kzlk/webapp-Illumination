@@ -155,8 +155,9 @@ app.get('/fabricDetail/:id', (req, res) => {
   }
 });
 
-app.get('/lampEdit/:id', (req, res) => {
-  const id = parseInt(req.params.id);
+//deel 3
+app.get('/lampEdit/:id', async (req, res) => {
+  const id: number = parseInt(req.params.id);
   const lamp = lampsData.find(l => l.id === id);
   if (lamp) {
     res.render('lampEdit', {
@@ -168,7 +169,7 @@ app.get('/lampEdit/:id', (req, res) => {
 });
 
 //deel 3
-app.post("/lampEdit/:id", async (req, res) => {
+app.post('/lampEdit/:id', async (req, res) => {
   const lamp = lampsData.find(l => l.id === parseInt(req.params.id));
   if (lamp) {
     let actief: boolean = req.body.actief;
@@ -176,10 +177,31 @@ app.post("/lampEdit/:id", async (req, res) => {
     let kleur: string = req.body.kleur;
     let beschrijving: string = req.body.beschrijving;
 
-    await client.db("db_lamps").collection("Lamps").updateOne(
-      { id: lamp.id }, { $set: lamp });
+    await client
+      .db('db_lamps')
+      .collection('Lamps')
+      .updateOne(
+        { id: lamp.id },
+        {
+          $set: {
+            actief: actief,
+            prijs: prijs,
+            kleur: kleur,
+            beschrijving: beschrijving,
+          },
+        }
+      );
+
+    lampsData = [];
+    lampsData = await client
+      .db('db_lamps')
+      .collection('Lamps')
+      .find<Lamp>({})
+      .toArray();
+    res.redirect(`/lampEdit/${lamp.id}`);
+  } else {
+    res.status(404).send('Lamp niet gevonden');
   }
-  res.redirect("/lampEdit/:id");
 });
 
 
@@ -225,6 +247,8 @@ export async function connect() {
     console.error(error);
   }
 }
+
+
 
 //start server
 app.listen(app.get('port'), async () => {

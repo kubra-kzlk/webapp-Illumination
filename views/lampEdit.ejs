@@ -8,7 +8,7 @@
           </div>
           <div class="col-md-8">
             <div class="card-body">
-              <form method="POST" action="/">
+              <form method="POST" action="<%= %>/lampEdit">
                 <h1 class="card-title"><%- lamp.naam %></h1>
                 <p class="card-text">&#x1F194; &nbsp; <%- lamp.id %></p>
                 <!-- Radioknopvelden -->
@@ -23,9 +23,11 @@
                 <!-- Keuzelijstveld -->
                 <label for="kleur">Kleur:</label>
                 <select id="kleur" name="kleur" class="form-control">
-                  <option value="male">Man</option>
-                  <option value="female">Vrouw</option>
-                  <option value="other">Anders</option>
+                  <option value="geel">geel</option>
+                  <option value="roze">roze</option>
+                  <option value="grijs">grijs</option>
+                  <option value="paars">paars</option>
+                  <option value="groen">groen</option>
                 </select></br>
                 <div class="form-group">
                   <label for="beschrijving">Beschrijving:</label>
