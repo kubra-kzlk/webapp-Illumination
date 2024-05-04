@@ -8,19 +8,20 @@
           </div>
           <div class="col-md-8">
             <div class="card-body">
-              <form method="POST" action="<%= %>/lampEdit">
+              <form method="POST" action="<%= lamp.id%>/lampEdit">
                 <h1 class="card-title"><%- lamp.naam %></h1>
                 <p class="card-text">&#x1F194; &nbsp; <%- lamp.id %></p>
                 <!-- Radioknopvelden -->
                 <label>Actief:</label>
-                <input type="radio" id="ja" name="actief" value="ja" />
+                <input type="radio" id="ja" name="actief" value="ja" required/>
                 <label for="ja">Ja</label>
-                <input type="radio" id="nee" name="actief" value="nee" />
-                <label for="nee">Nee</label></br>
-
+                <input type="radio" id="nee" name="actief" value="nee" required/>
+                <label for="nee">Nee</label>
+              </br></br>
                 <label for="prijs">Prijs in &#8364; :</label>
-                <input type="number" id="prijs" class="form-control" name="prijs" step="0.01" min="0" required />
-                <!-- Keuzelijstveld -->
+                <input type="number" id="prijs" class="form-control" name="prijs" step="0.01" min="0" 
+                 value="<%= lamp.prijs %>" required >
+                <!-- Keuzelijstveld --></br>
                 <label for="kleur">Kleur:</label>
                 <select id="kleur" name="kleur" class="form-control">
                   <option value="geel">geel</option>
@@ -29,10 +30,11 @@
                   <option value="paars">paars</option>
                   <option value="groen">groen</option>
                 </select></br>
-                <div class="form-group">
+                <section class="form-group">
                   <label for="beschrijving">Beschrijving:</label>
-                  <textarea class="form-control" id="beschrijving" rows="3" placeholder="beschrijving"></textarea>
-                </div>
+                  <textarea class="form-control" id="beschrijving" rows="3" type="text"  placeholder="beschrijving" 
+                  value="<%= lamp.beschrijving%> " required> </textarea>
+                </section></br>
                 <button type="submit" value="Update" class="btn btn-primary" >Update</button>
               </form>
               <!--aangemaakte product displayen-->

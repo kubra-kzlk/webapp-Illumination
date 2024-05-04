@@ -18,7 +18,6 @@ app.use(express.static('public', { extensions: ['html'] }));// Serve static file
 app.set('views', path.join(__dirname, 'views'));// Set the views directory for the app
 app.set('port', 3000);// Set the port for the app
 
-
 // Parse JSON data
 let lampsData: Lamp[] = [];
 let fabricsData: Fabrikant[] = [];
@@ -26,7 +25,6 @@ let fabricsData: Fabrikant[] = [];
 app.get('/', async (req, res) => {
   res.render('index');
 });
-
 
 app.get("/register-success", (req, res) => {
   res.render("register-success");
@@ -192,7 +190,7 @@ app.post('/lampEdit/:id', async (req, res) => {
         }
       );
 
-    lampsData = [];
+    //lampsData = [];
     lampsData = await client
       .db('db_lamps')
       .collection('Lamps')
@@ -204,14 +202,8 @@ app.post('/lampEdit/:id', async (req, res) => {
   }
 });
 
-
-// Parse JSON data
-let lampsList: Lamp[] = [];
-let fabricsList: Fabrikant[] = [];
-export async function updateLamp(l: Lamp) { }
-
-// Database MongoDB
-export async function connect() {
+//deel 3: Database MongoDB
+ async function connect() {
   try {
     await client.connect();
     console.log('Connected to MongoDB Atlas from index.ts!');
@@ -242,13 +234,11 @@ export async function connect() {
     //fetch from db
     lampsData = await db.collection("Lamps").find<Lamp>({}).toArray();
     fabricsData = await db.collection("Fabrikant").find<Fabrikant>({}).toArray();
-    return { lampsList, fabricsList };
+    
   } catch (error) {
     console.error(error);
   }
 }
-
-
 
 //start server
 app.listen(app.get('port'), async () => {
