@@ -127,6 +127,7 @@ app.get('/lampDetail/:id', (req, res) => {
   const id = parseInt(req.params.id);
   const lamp = lampsData.find(l => l.id === id);
   if (lamp) {
+    console.log(lamp)
     res.render('lampDetail', {
       lamp: lamp,
     });

@@ -3,14 +3,13 @@
     <div class="card border-light mb-5" style="max-width: 1500px;">
       <div class="row g-0">
         <div class="col-md-4 text-center">
-          <img src="<%- lamp.foto %>" class="img-fluid rounded" alt="image" 
-          style="width: 300px; height: 300px" />
+          <img src="<%- lamp.foto %>" class="img-fluid rounded" alt="image" style="width: 300px; height: 300px" />
         </div>
         <div class="col-md-8">
           <div class="card-body">
             <h1 class="card-title"><%- lamp.naam %></h1>
-        
-            <p class="card-text"><%- lamp.beschrijving %></p>
+
+
             <p class="card-text">&#x1F194; &nbsp; <%- lamp.id %></p>
             <p class="card-text">&#x1F4C5; &nbsp;<%- lamp.datum %></p>
             <p class="card-text">
@@ -28,6 +27,7 @@
                 <circle cx="5" cy="5" r="5" fill="<%= lamp.actief ? 'green' : 'red' %>" />
               </svg>
             </p>
+            <p class="card-text"><%- lamp.beschrijving %></p>
           </div>
           <div class="card-body">
             <a href="/lamps" class="card-link">&#x2190;Ga terug naar de lijst</a>
