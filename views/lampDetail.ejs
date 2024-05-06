@@ -8,7 +8,7 @@
         <div class="col-md-8">
           <div class="card-body">
             <h1 class="card-title"><%- lamp.naam %></h1>
-
+            <p class="card-text"><%- lamp.beschrijving %></p>
 
             <p class="card-text">&#x1F194; &nbsp; <%- lamp.id %></p>
             <p class="card-text">&#x1F4C5; &nbsp;<%- lamp.datum %></p>
@@ -27,7 +27,8 @@
                 <circle cx="5" cy="5" r="5" fill="<%= lamp.actief ? 'green' : 'red' %>" />
               </svg>
             </p>
-            <p class="card-text"><%- lamp.beschrijving %></p>
+            <p class="card-text"> <a href="/fabricDetail/<%= lamp.fabrikant.id %>" class="card-link">&#x1F3E3;&nbsp;
+                Fabriek <%= lamp.fabrikant.naam %> </a></p>
           </div>
           <div class="card-body">
             <a href="/lamps" class="card-link">&#x2190;Ga terug naar de lijst</a>
