@@ -170,7 +170,7 @@ app.get('/lampEdit/:id', async (req, res) => {
 app.post('/lampEdit/:id', async (req, res) => {
   const lamp = lampsData.find(l => l.id === parseInt(req.params.id));
   if (lamp) {
-    let actief: boolean = req.body.actief;
+    let actief: string = req.body.actief;
     let prijs: number = req.body.prijs;
     let kleur: string = req.body.kleur;
     let beschrijving: string = req.body.beschrijving;
@@ -182,7 +182,8 @@ app.post('/lampEdit/:id', async (req, res) => {
         { id: lamp.id },
         {
           $set: {
-            actief: actief,
+
+            actief: actief === "ja" ? true : false,
             prijs: prijs,
             kleur: kleur,
             beschrijving: beschrijving,
@@ -203,7 +204,7 @@ app.post('/lampEdit/:id', async (req, res) => {
 });
 
 //deel 3: Database MongoDB
- async function connect() {
+async function connect() {
   try {
     await client.connect();
     console.log('Connected to MongoDB Atlas from index.ts!');
@@ -234,7 +235,7 @@ app.post('/lampEdit/:id', async (req, res) => {
     //fetch from db
     lampsData = await db.collection("Lamps").find<Lamp>({}).toArray();
     fabricsData = await db.collection("Fabrikant").find<Fabrikant>({}).toArray();
-    
+
   } catch (error) {
     console.error(error);
   }
