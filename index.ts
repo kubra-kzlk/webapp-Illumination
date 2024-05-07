@@ -3,7 +3,11 @@ import { Lamp, Fabrikant } from './types';
 import { MongoClient } from 'mongodb';
 import dotenv from 'dotenv';
 import path from "path";
+import session from "./session";
 import { homeRouter } from "./routers/homeRouter";
+import { loginRouter } from "./routers/loginRouter";
+import { secureMiddleware } from "./middleware/secureMiddleware";
+import { flashMiddleware } from "./middleware/flashMiddleware";
 
 //D3: 
 export const uri =
@@ -17,6 +21,8 @@ app.set('view engine', 'ejs'); // EJS als view engine, Set the view engine for t
 app.use(express.json());// Parse JSON bodies for this app
 app.use(express.urlencoded({ extended: true }));// Parse URL-encoded bodies for this app
 app.use(express.static('public', { extensions: ['html'] }));// Serve static files from the 'public' directory. tell express to serve the content of public dir, the express.static middleware is used to serve static files from the public directory. The middleware should be added before any other routes or middleware.
+app.use(flashMiddleware);
+app.use(session);
 app.set('views', path.join(__dirname, 'views'));// Set the views directory for the app
 app.set('port', 3000);// Set the port for the app
 
@@ -24,7 +30,8 @@ app.set('port', 3000);// Set the port for the app
 let lampsData: Lamp[] = [];
 let fabricsData: Fabrikant[] = [];
 
-//registerpage
+//D4
+app.use("/", loginRouter());
 app.get('/',secureMiddleware,homeRouter());
 
 app.get('/main', async (req, res) => {
@@ -212,25 +219,6 @@ app.get('/register', async (req, res) => {
 app.get('/login', (req, res) => {
   res.render("login");
 });
-
-/*
-// Server-side route to check if a user exists
-app.post('/checkUserAccount', async (req, res) => {
-  const { username } = req.body; // Assuming username is being checked
-
-  try {
-      const user = await User.findOne({ username }); // Check if user exists
-
-      if (user) {
-          res.send({ exists: true }); // Send response if user exists
-      } else {
-          res.send({ exists: false }); // Send response if user doesn't exist
-      }
-  } catch (error) {
-      res.status(500).send("Error checking user account.");
-  }
-});
-*/
 
 
 //deel 3: Database MongoDB

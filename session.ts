@@ -1,11 +1,11 @@
-import { MONGODB_URI } from "./database";
+import { uri } from "./index";
 import session, { MemoryStore } from "express-session";
 import { FlashMessage, User } from "./types";
 import mongoDbSession from "connect-mongodb-session";
 const MongoDBStore = mongoDbSession(session);
 
 const mongoStore = new MongoDBStore({
-    uri: MONGODB_URI,
+    uri: uri,
     collection: "sessions",
     databaseName: "login-express",
 });

@@ -30,3 +30,10 @@ export interface FlashMessage {
   type: "error" | "success" | "info"
   message: string;
 }
+
+export interface User {
+  _id?: ObjectId;
+  email: string;
+  password?: string;
+  role: "ADMIN" | "USER";
+}
