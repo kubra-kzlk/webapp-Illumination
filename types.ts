@@ -25,3 +25,8 @@ export interface Fabrikant {
   telefoon: string;
   website: string;
 }
+
+export interface FlashMessage {
+  type: "error" | "success" | "info"
+  message: string;
+}

@@ -3,7 +3,9 @@ import { Lamp, Fabrikant } from './types';
 import { MongoClient } from 'mongodb';
 import dotenv from 'dotenv';
 import path from "path";
+import { homeRouter } from "./routers/homeRouter";
 
+//D3: 
 export const uri =
   'mongodb+srv://flowerpowerrr33:flowerpower@webontw.xhfyyfc.mongodb.net/'; //verander username en wachtwoord
 export const client = new MongoClient(uri);
@@ -23,14 +25,11 @@ let lampsData: Lamp[] = [];
 let fabricsData: Fabrikant[] = [];
 
 //registerpage
-app.get('/', async (req, res) => {
-  res.render('index');
-});
+app.get('/',secureMiddleware,homeRouter());
 
 app.get('/main', async (req, res) => {
   res.render('main');
 });
-
 
 app.get('/lamps', async (req, res) => {
   //zoekbalk producten
@@ -155,7 +154,7 @@ app.get('/fabricDetail/:id', (req, res) => {
   }
 });
 
-//deel 3
+//deel 3: hoofdobject kunnen updaten
 app.get('/lampEdit/:id', async (req, res) => {
   const id: number = parseInt(req.params.id);
   const lamp = lampsData.find(l => l.id === id);
@@ -209,13 +208,30 @@ app.post('/lampEdit/:id', async (req, res) => {
 app.get('/register', async (req, res) => {
   res.render("register");
 })
-app.get("/register-success", (req, res) => {
-  res.render("register-success");
-});
 
 app.get('/login', (req, res) => {
   res.render("login");
 });
+
+/*
+// Server-side route to check if a user exists
+app.post('/checkUserAccount', async (req, res) => {
+  const { username } = req.body; // Assuming username is being checked
+
+  try {
+      const user = await User.findOne({ username }); // Check if user exists
+
+      if (user) {
+          res.send({ exists: true }); // Send response if user exists
+      } else {
+          res.send({ exists: false }); // Send response if user doesn't exist
+      }
+  } catch (error) {
+      res.status(500).send("Error checking user account.");
+  }
+});
+*/
+
 
 //deel 3: Database MongoDB
 async function connect() {
