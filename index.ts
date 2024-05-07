@@ -203,6 +203,11 @@ app.post('/lampEdit/:id', async (req, res) => {
   }
 });
 
+//deel 4
+app.get('/register', async (req, res) => {
+  res.render("register");
+})
+
 //deel 3: Database MongoDB
 async function connect() {
   try {
