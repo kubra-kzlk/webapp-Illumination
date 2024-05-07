@@ -1,19 +1,8 @@
 <%- include('./partials/header') %>
   <main>
-    <!--zoekfunctie naast zoekbalk-->
-    <form action="/lamps" method="get" class="input-group p-lg-5 mx-auto">
-      <select name="sortField">
-        <% for (let field of sortFields) { %>
-          <option value="<%= field.value %>" <%="field.selected" %>
-            ><%= field.text %>
-          </option>
-          <% } %>
-      </select>
-      <button type="submit" class="btn btn-outline-primary">Sorteer</button>
-
       <!--zoekbalk-->
-      <form action="/lamps" method="get" class="input-group mb-3">
-        <label for="q">Zoek:</label>
+      <form action="/lamps" method="get" class="input-group mb-3" style="width: fit-content; margin: auto;">
+        <label for="q" style="margin: 10px;">Zoek:</label>
         <input class="form-control" type="text" id="q" name="q" placeholder="zoek een product"
           value="<%= searchQuery %>" aria-describedby="button-addon2" />
         <button class="btn btn-outline-secondary" type="submit" id="button-addon2">

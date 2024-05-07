@@ -22,13 +22,15 @@ app.set('port', 3000);// Set the port for the app
 let lampsData: Lamp[] = [];
 let fabricsData: Fabrikant[] = [];
 
+//registerpage
 app.get('/', async (req, res) => {
   res.render('index');
 });
 
-app.get("/register-success", (req, res) => {
-  res.render("register-success");
+app.get('/main', async (req, res) => {
+  res.render('main');
 });
+
 
 app.get('/lamps', async (req, res) => {
   //zoekbalk producten
@@ -207,6 +209,13 @@ app.post('/lampEdit/:id', async (req, res) => {
 app.get('/register', async (req, res) => {
   res.render("register");
 })
+app.get("/register-success", (req, res) => {
+  res.render("register-success");
+});
+
+app.get('/login', (req, res) => {
+  res.render("login");
+});
 
 //deel 3: Database MongoDB
 async function connect() {
