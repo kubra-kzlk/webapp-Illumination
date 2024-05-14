@@ -3,13 +3,7 @@ import { Lamp, Fabrikant } from './types';
 import { MongoClient } from 'mongodb';
 import dotenv from 'dotenv';
 import path from "path";
-import session from "./session";
-import { homeRouter } from "./routers/homeRouter";
-import { loginRouter } from "./routers/loginRouter";
-import { secureMiddleware } from "./middleware/secureMiddleware";
-import { flashMiddleware } from "./middleware/flashMiddleware";
 
-//D3: 
 export const uri =
   'mongodb+srv://flowerpowerrr33:flowerpower@webontw.xhfyyfc.mongodb.net/'; //verander username en wachtwoord
 export const client = new MongoClient(uri);
@@ -21,8 +15,6 @@ app.set('view engine', 'ejs'); // EJS als view engine, Set the view engine for t
 app.use(express.json());// Parse JSON bodies for this app
 app.use(express.urlencoded({ extended: true }));// Parse URL-encoded bodies for this app
 app.use(express.static('public', { extensions: ['html'] }));// Serve static files from the 'public' directory. tell express to serve the content of public dir, the express.static middleware is used to serve static files from the public directory. The middleware should be added before any other routes or middleware.
-app.use(flashMiddleware);
-app.use(session);
 app.set('views', path.join(__dirname, 'views'));// Set the views directory for the app
 app.set('port', 3000);// Set the port for the app
 
@@ -30,12 +22,12 @@ app.set('port', 3000);// Set the port for the app
 let lampsData: Lamp[] = [];
 let fabricsData: Fabrikant[] = [];
 
-//D4
-app.use("/", loginRouter());
-app.get('/',secureMiddleware,homeRouter());
+app.get('/', async (req, res) => {
+  res.render('index');
+});
 
-app.get('/main', async (req, res) => {
-  res.render('main');
+app.get("/register-success", (req, res) => {
+  res.render("register-success");
 });
 
 app.get('/lamps', async (req, res) => {
@@ -161,7 +153,7 @@ app.get('/fabricDetail/:id', (req, res) => {
   }
 });
 
-//deel 3: hoofdobject kunnen updaten
+//deel 3
 app.get('/lampEdit/:id', async (req, res) => {
   const id: number = parseInt(req.params.id);
   const lamp = lampsData.find(l => l.id === id);
@@ -215,11 +207,6 @@ app.post('/lampEdit/:id', async (req, res) => {
 app.get('/register', async (req, res) => {
   res.render("register");
 })
-
-app.get('/login', (req, res) => {
-  res.render("login");
-});
-
 
 //deel 3: Database MongoDB
 async function connect() {
