@@ -3,12 +3,13 @@ dotenv.config();
 import { MongoClient } from "mongodb";
 import { User } from "./types";
 import bcrypt from "bcrypt";
+import {client} from "./index";
 
 export async function login(email: string, password: string) {
     if (email === "" || password === "") {
         throw new Error("Email and password required");
     }
-    let user : User | null = await userCollection.findOne<User>({email: email});
+    let user : User | null = await client.db("db_lamps").collection("Lamps").findOne<User>({email: email});
     if (user) {
         if (await bcrypt.compare(password, user.password!)) {
             return user;
@@ -20,7 +21,7 @@ export async function login(email: string, password: string) {
     }
 }
 async function createInitialUser() {
-    if (await userCollection.countDocuments() > 0) {
+    if (await client.db("db_lamps").collection("Users").countDocuments() > 0) {
         return;
     }
     let email : string | undefined = process.env.ADMIN_EMAIL;
@@ -28,9 +29,9 @@ async function createInitialUser() {
     if (email === undefined || password === undefined) {
         throw new Error("ADMIN_EMAIL and ADMIN_PASSWORD must be set in environment");
     }
-    await userCollection.insertOne({
+    await client.db("db_lamps").collection("Users").insertOne({
         email: email,
-        password: await bcrypt.hash(password, saltRounds),
+        password: await bcrypt.hash(password, 10), //10 x hashen
         role: "ADMIN"
     });
 }

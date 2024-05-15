@@ -25,3 +25,10 @@ export interface Fabrikant {
   telefoon: string;
   website: string;
 }
+
+export interface User {
+  _id?: ObjectId;
+  email: string;
+  password?: string;
+  role: "ADMIN" | "USER";
+}
