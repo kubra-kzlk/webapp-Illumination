@@ -32,5 +32,11 @@
 },
 "[typescriptreact]": {
   "editor.defaultFormatter": "esbenp.prettier-vscode"
+},
+"[css]": {
+  "editor.defaultFormatter": "vscode.css-language-features"
+},
+"[html]": {
+  "editor.defaultFormatter": "vscode.html-language-features"
 }
 }
