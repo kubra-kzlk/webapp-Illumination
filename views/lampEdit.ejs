@@ -1,18 +1,18 @@
 <%- include('./partials/header') %>
-  <main style="margin-top: 50px">
+  <main >
     <div class="card border-light mb-5" style="max-width: 1500px">
       <div class="card border-light mb-5" style="max-width: 1500px">
         <div class="row g-0">
-          <div class="col-md-4 text-center">
+          <div class="col-md-4 text-center" style="margin-top: 50px">
             <img src="<%- lamp.foto %>" class="img-fluid rounded" alt="image" style="width: 300px; height: 300px" />
           </div>
           <div class="col-md-8">
             <div class="card-body">
-              <form method="POST" action="<%= lamp.id%>/lampEdit">
+              <form method="POST" action="/lampEdit/<%= lamp.id%>">
                 <h1 class="card-title"><%- lamp.naam %></h1>
                 <p class="card-text">&#x1F194; &nbsp; <%- lamp.id %></p>
                 <!-- Radioknopvelden -->
-                <label>Actief:</label>
+                <label>Beschikbaar:</label>
                 <input type="radio" id="ja" name="actief" value="ja" required/>
                 <label for="ja">Ja</label>
                 <input type="radio" id="nee" name="actief" value="nee" required/>
@@ -32,13 +32,12 @@
                 </select></br>
                 <section class="form-group">
                   <label for="beschrijving">Beschrijving:</label>
-                  <textarea class="form-control" id="beschrijving" rows="3" type="text"  placeholder="beschrijving" 
+                  <textarea class="form-control" id="beschrijving" rows="3" type="text"  placeholder="beschrijving" name="beschrijving"
                   value="<%= lamp.beschrijving%> " required> </textarea>
                 </section></br>
                 <button type="submit" value="Update" class="btn btn-primary" >Update</button>
               </form>
-              <!--aangemaakte product displayen-->
-
+          
             </div>
           </div>
         </div>

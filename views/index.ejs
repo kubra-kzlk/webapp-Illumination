@@ -20,21 +20,37 @@
     crossorigin="anonymous"></script>
 </head>
 
-<h1 class="mt-5 text-center">Registratie</h1>    
+<div class="container my-5">
+  <h1 class="mt-5 text-center">Registratie</h1>
+  <br>
+  <div class="d-flex justify-content-center align-items-center">
+    <form action="/register" method="POST">
+      <div class="mb-3">
+        <label for="username" class="form-label">Gebruikersnaam</label>
+        <input type="text" class="form-control" id="username" name="username" required>
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Wachtwoord</label>
+        <input type="password" class="form-control" id="password" name="password" required>
+      </div>
+      <div class="d-flex justify-content-center">
+        <button type="submit" class="btn btn-primary">Registreer</button>
+      </div>
+    </form>
+    
+  </div>
+
+</div>
+
 <br>
-<div class="container d-flex justify-content-center align-items-center">           
-        <form action="/register" method="POST">
-            <div class="mb-3">
-                <label for="username" class="form-label">gebruikersnaam</label>
-                <input type="text" class="form-control" id="username" name="username" required>
-            </div>
-           
-            <div class="mb-3">
-                <label for="password" class="form-label">wachtwoord</label>
-                <input type="password" cl ass="form-control" id="password" name="password" required>
-            </div>
-            <!--D4: Als de gebruiker het form invult, dan moet hij w geregistreerd en doorgestuurd nr de login pagina.-->
-            <button type="submit" class="btn btn-primary "><a href="/login" class="btn btn-primary">Registeer</a></button>
-        </form>
-    </div>   
-    <%- include('./partials/footer') %>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<%- include('./partials/footer') %>

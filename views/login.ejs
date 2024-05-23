@@ -20,20 +20,38 @@
     crossorigin="anonymous"></script>
 </head>
 
-<h1 class="mt-5 text-center">Inloggen</h1>    
+<h1 class="mt-5 text-center">Inloggen</h1>
 <br>
-<div class="container d-flex justify-content-center align-items-center">           
-        <form action="/login" method="POST">
-            <div class="mb-3">
-                <label for="username" class="form-label">gebruikersnaam</label>
-                <input type="text" class="form-control" id="username" name="username" required>
-            </div>
-           
-            <div class="mb-3">
-                <label for="password" class="form-label">wachtwoord</label>
-                <input type="password" class="form-control" id="password" name="password" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Inloggen</button>
-        </form>
-    </div>     
-    <%- include('./partials/footer') %>
+<div class="container d-flex justify-content-center align-items-center">
+  <form action="/login" method="POST">
+    <div class="mb-3">
+      <label for="username" class="form-label">Gebruikersnaam</label>
+      <input type="text" class="form-control" id="username" name="username" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="password" class="form-label">
+        Wachtwoord</label>
+      <input type="password" class="form-control" id="password" name="password" required>
+    </div>
+    <div class="d-flex justify-content-center">
+      <button type="submit" class="btn btn-primary">Inloggen</button>
+    </div>
+   
+  </form>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<%- include('./partials/footer') %>

@@ -5,8 +5,7 @@ import dotenv from 'dotenv';
 import path from "path";
 
 //D3: 
-export const uri =
-  'mongodb+srv://flowerpowerrr33:flowerpower@webontw.xhfyyfc.mongodb.net/'; //verander username en wachtwoord
+export const uri = 'mongodb+srv://flowerpowerrr33:flowerpower@webontw.xhfyyfc.mongodb.net/'; //verander username en wachtwoord
 export const client = new MongoClient(uri);
 
 const app: Express = express();// Get the default connection
@@ -25,7 +24,7 @@ let lampsData: Lamp[] = [];
 let fabricsData: Fabrikant[] = [];
 
 //D4
-app.get('/', async (req,res)=>{
+app.get('/', async (req, res) => {
   res.render('index');
 })
 
@@ -156,7 +155,7 @@ app.get('/fabricDetail/:id', (req, res) => {
   }
 });
 
-//deel 3: hoofdobject kunnen updaten
+//D3: hoofdobject kunnen updaten
 app.get('/lampEdit/:id', async (req, res) => {
   const id: number = parseInt(req.params.id);
   const lamp = lampsData.find(l => l.id === id);
@@ -169,7 +168,7 @@ app.get('/lampEdit/:id', async (req, res) => {
   }
 });
 
-//deel 3
+//D3
 app.post('/lampEdit/:id', async (req, res) => {
   const lamp = lampsData.find(l => l.id === parseInt(req.params.id));
   if (lamp) {
@@ -193,8 +192,6 @@ app.post('/lampEdit/:id', async (req, res) => {
           },
         }
       );
-
-    //lampsData = [];
     lampsData = await client
       .db('db_lamps')
       .collection('Lamps')
@@ -216,7 +213,7 @@ app.get('/login', (req, res) => {
 });
 
 
-//deel 3: Database MongoDB
+//D3 Database MongoDB
 async function connect() {
   try {
     await client.connect();
@@ -227,7 +224,7 @@ async function connect() {
     const fabrikantCheck = await db.collection("Fabrikant").findOne({});
 
     if (!lampsCheck) {
-      //deel 3: Data naar MongoDB schrijven
+      //D3 Data naar MongoDB schrijven
       //fetch from API
       //Zorg ervoor dat je alle data dat je via de fetch API ophaalt in MongoDB naar mongoDB schrijft. Kijk bij de opstart van de applicatie altijd eerst of er data in de database zit. Als er geen data in de database zit, dan moet je de data ophalen via de fetch API en in de database schrijven. Als er data inzit gebruik je de data die afkomstig is uit de MongoDB database.
       const lampResponse = await fetch('https://raw.githubusercontent.com/kubra-kzlk/lamps/main/lamps.json');
@@ -243,7 +240,7 @@ async function connect() {
       //objecten nr db toevoegen
       await db.collection("Fabrikant").insertMany(fabrikantdata);
     }
-    //deel 3:Data ophalen uit MongoDB
+    //D3 Data ophalen uit MongoDB
     //Zorg ervoor dat alle endpoints worden aangepast zodat de data uit de MongoDB database wordt gehaald ipv de data die je via de fetch API ophaalt.
     //fetch from db
     lampsData = await db.collection("Lamps").find<Lamp>({}).toArray();
