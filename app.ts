@@ -83,4 +83,3 @@ const application = async () => {
   }
 };
 application();
-//alles pushen nr je repo

@@ -5,6 +5,26 @@
 .container {
   max-width: 960px;
 }
+/* Basic styling for the navbar items */
+.navbar .navbar-brand {
+  color: #000; /* Initial color */
+  transition: color 0.3s ease; /* Smooth transition for color change */
+}
+
+/* Hover effect for the navbar items */
+.navbar .navbar-brand:hover {
+  color: yellow; /* Hover color */
+}
+
+/* Active page styling */
+.navbar .navbar-brand.active {
+  border-bottom: 2px solid yellow; /* Active page border color */
+}
+
+/* Optional: Maintain hover color for active item */
+.navbar .navbar-brand.active:hover {
+  color: yellow; /* Keep the hover color for active item */
+}
 
 .product-device {
   position: absolute;

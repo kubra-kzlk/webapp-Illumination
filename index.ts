@@ -3,34 +3,49 @@ import { Lamp, Fabrikant } from './types';
 import { MongoClient } from 'mongodb';
 import dotenv from 'dotenv';
 import path from "path";
+import { createInitialUser } from "./database"
+// import session from "./session"; //D4
+import { loginRouter } from "./routes/loginRouter";
+import { homeRouter } from "./routes/homeRouter";
+import { registerRouter } from "./routes/registerRouter";
+import { flashMiddleware } from "./flashMiddleware";//D4
+
 
 //D3: 
-export const uri = 'mongodb+srv://flowerpowerrr33:flowerpower@webontw.xhfyyfc.mongodb.net/'; //verander username en wachtwoord
+export const uri = process.env.MONGO_URI ?? 'mongodb+srv://flowerpowerrr33:flowerpower@webontw.xhfyyfc.mongodb.net/';
 export const client = new MongoClient(uri);
 
 const app: Express = express();// Get the default connection
 
-dotenv.config(); // Load environment variables from .env file
+dotenv.config(); // D4 Load environment variables from .env file
 app.set('view engine', 'ejs'); // EJS als view engine, Set the view engine for the app
 app.use(express.json());// Parse JSON bodies for this app
 app.use(express.urlencoded({ extended: true }));// Parse URL-encoded bodies for this app
 app.use(express.static('public', { extensions: ['html'] }));// Serve static files from the 'public' directory. tell express to serve the content of public dir, the express.static middleware is used to serve static files from the public directory. The middleware should be added before any other routes or middleware.
-
+// app.use(session);//D4
 app.set('views', path.join(__dirname, 'views'));// Set the views directory for the app
 app.set('port', 3000);// Set the port for the app
-
+app.use(loginRouter());//D4
+app.use(homeRouter());//D4
+app.use(registerRouter());//D4
+app.use(flashMiddleware);//D4
+             
 // Parse JSON data
 let lampsData: Lamp[] = [];
 let fabricsData: Fabrikant[] = [];
 
-//D4
-app.get('/', async (req, res) => {
-  res.render('index');
-})
+//D4: middlew alleen aan index route tvgn
+// app.get('/', secureMiddleware, async (req, res) => {
 
-app.get('/main', async (req, res) => {
-  res.render('main');
-});
+//   res.render("index");
+//   //checken of gb is ingelogd of nt
+//   //PROBLEEM: vr elke route controleren of gb is ingelogd => veel werk, foutgevoelig ==> OPL: middleware: contro of gb is ingelogd
+// //   if (req.session.user) {
+// //     res.render("index", {user: req.session.user});
+// // } else {
+// //     res.redirect("/login");
+// // }
+// })
 
 app.get('/lamps', async (req, res) => {
   //zoekbalk producten
@@ -122,6 +137,7 @@ app.get('/lamps', async (req, res) => {
     sortField: sortField,
     sortDirection: sortDirection,
     searchQuery,
+    page:'lamps'
   });
 });
 
@@ -130,7 +146,8 @@ app.get('/lampDetail/:id', (req, res) => {
   const lamp = lampsData.find(l => l.id === id);
   if (lamp) {
     res.render('lampDetail', {
-      lamp: lamp
+      lamp: lamp,
+      page:'lampDetail'
     });
   } else {
     res.status(404).send('Geen lamp gevonden')
@@ -140,6 +157,7 @@ app.get('/lampDetail/:id', (req, res) => {
 app.get('/fabrics', async (req, res) => {
   res.render('fabrics', {
     fabrics: fabricsData,
+    page:'fabrics'
   });
 });
 
@@ -149,26 +167,26 @@ app.get('/fabricDetail/:id', (req, res) => {
   if (fabric) {
     res.render('fabricDetail', {
       fabric: fabric,
+      page:'fabricDetail'
     });
   } else {
     res.status(404).send('Geen lamp gevonden')
   }
 });
 
-//D3: hoofdobject kunnen updaten
 app.get('/lampEdit/:id', async (req, res) => {
   const id: number = parseInt(req.params.id);
   const lamp = lampsData.find(l => l.id === id);
   if (lamp) {
     res.render('lampEdit', {
       lamp: lamp,
+      page:'lampEdit'
     });
   } else {
     res.status(404).send('geen lamp gevonden')
   }
 });
 
-//D3
 app.post('/lampEdit/:id', async (req, res) => {
   const lamp = lampsData.find(l => l.id === parseInt(req.params.id));
   if (lamp) {
@@ -200,26 +218,34 @@ app.post('/lampEdit/:id', async (req, res) => {
     res.redirect(`/lampEdit/${lamp.id}`);
   } else {
     res.status(404).send('Lamp niet gevonden');
+    //PROBLEEM: vr elke route controleren of gb is ingelogd => veel werk, foutgevoelig ==> OPL: middleware: contro of gb is ingelogd');
   }
 });
 
-//deel 4
-app.get('/register', async (req, res) => {
-  res.render("register");
-})
+//D3: sluit connectie wnnr app stopt
+async function exit() {
+    try {
+        await client.close();
+        console.log("Disconnected from database");
+    } catch (error) {
+        console.error(error);
+    }
+    process.exit(0);
+}
 
-app.get('/login', (req, res) => {
-  res.render("login");
-});
-
-
-//D3 Database MongoDB
+//D3 DB MongoDB: connectie met db opzetten
 async function connect() {
   try {
     await client.connect();
     console.log('Connected to MongoDB Atlas from index.ts!');
     const db = client.db("db_lamps");
-    //controleren of collectie leeg is of niet
+    process.on("SIGINT",exit);
+    //D4: nieuwe gb enkel tvgn wnnr er nog geen gb in db zitten
+    await createInitialUser(); 
+    console.log('nieuwe gb aangemaakt');
+
+    //controleren of collectie leeg is of nt
+    //PROBLEEM: vr elke route controleren of gb is ingelogd => veel werk, foutgevoelig ==> OPL: middleware: contro of gb is ingelogd
     const lampsCheck = await db.collection("Lamps").findOne({});
     const fabrikantCheck = await db.collection("Fabrikant").findOne({});
 
@@ -240,8 +266,7 @@ async function connect() {
       //objecten nr db toevoegen
       await db.collection("Fabrikant").insertMany(fabrikantdata);
     }
-    //D3 Data ophalen uit MongoDB
-    //Zorg ervoor dat alle endpoints worden aangepast zodat de data uit de MongoDB database wordt gehaald ipv de data die je via de fetch API ophaalt.
+    //D3 Data ophalen uit MongoDB: Zorg ervoor dat alle endpoints worden aangepast zodat de data uit de MongoDB database wordt gehaald ipv de data die je via de fetch API ophaalt.
     //fetch from db
     lampsData = await db.collection("Lamps").find<Lamp>({}).toArray();
     fabricsData = await db.collection("Fabrikant").find<Fabrikant>({}).toArray();
@@ -253,6 +278,11 @@ async function connect() {
 
 //start server
 app.listen(app.get('port'), async () => {
-  await connect();
-  console.log('Server started on http://localhost:' + app.get('port'));
+  try{
+    await connect();
+    console.log('Server started on http://localhost:' + app.get('port'));
+  }catch(e){
+    console.log(e);
+        process.exit(1); //app stopt wnr er error is, app kan nt zndr db con dus server mag nt blijven draaien wnnr er error is
+  } 
 });

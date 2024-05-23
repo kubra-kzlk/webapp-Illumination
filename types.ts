@@ -25,10 +25,15 @@ export interface Fabrikant {
   telefoon: string;
   website: string;
 }
-
+//D4:USER COLLECTION 
 export interface User {
   _id?: ObjectId;
   email: string;
   password?: string;
   role: "ADMIN" | "USER";
+} 
+//D4 error message tonen op de login pagina
+export interface FlashMessage {
+  type: "error" | "success"
+  message: string;
 }
