@@ -32,8 +32,3 @@ export interface User {
   password?: string;
   role: "ADMIN" | "USER";
 } 
-//D4 error message tonen op de login pagina
-export interface FlashMessage {
-  type: "error" | "success"
-  message: string;
-}

@@ -1,7 +1,6 @@
 import express from "express";
 import { register } from '../database';
 
-
 export function registerRouter(){
     const router = express.Router();
 
@@ -15,7 +14,7 @@ export function registerRouter(){
             const userId = await register(email,password)
             res.redirect("login"); 
         } catch (error: any) {
-            res.render("index", {message:error})
+            res.render("", {message:error})
         }
       });
     return router;

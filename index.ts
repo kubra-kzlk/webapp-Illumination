@@ -1,35 +1,43 @@
-import express, { Express } from 'express';
+import express, { } from 'express';
 import { Lamp, Fabrikant } from './types';
 import { MongoClient } from 'mongodb';
 import dotenv from 'dotenv';
-import path from "path";
 import { createInitialUser } from "./database"
-// import session from "./session"; //D4
+// import {sessionMiddleware} from "./session"; //D4
 import { loginRouter } from "./routes/loginRouter";
-import { homeRouter } from "./routes/homeRouter";
+import { mainRouter } from "./routes/mainRouter";
 import { registerRouter } from "./routes/registerRouter";
-import { flashMiddleware } from "./flashMiddleware";//D4
+import { secureMiddleware } from './secureMiddleware';
+import {User} from "./types";
+import session from 'express-session';
+dotenv.config();//D4 Load environment variables from .env file
 
-
-//D3: 
 export const uri = process.env.MONGO_URI ?? 'mongodb+srv://flowerpowerrr33:flowerpower@webontw.xhfyyfc.mongodb.net/';
 export const client = new MongoClient(uri);
-
-const app: Express = express();// Get the default connection
-
-dotenv.config(); // D4 Load environment variables from .env file
+const app = express();// Get the default connection
+app.set('port', process.env.PORT || 3000);// Set the port for the app
 app.set('view engine', 'ejs'); // EJS als view engine, Set the view engine for the app
+
 app.use(express.json());// Parse JSON bodies for this app
 app.use(express.urlencoded({ extended: true }));// Parse URL-encoded bodies for this app
-app.use(express.static('public', { extensions: ['html'] }));// Serve static files from the 'public' directory. tell express to serve the content of public dir, the express.static middleware is used to serve static files from the public directory. The middleware should be added before any other routes or middleware.
-// app.use(session);//D4
-app.set('views', path.join(__dirname, 'views'));// Set the views directory for the app
-app.set('port', 3000);// Set the port for the app
-app.use(loginRouter());//D4
-app.use(homeRouter());//D4
+app.use(express.static('public'));// Serve static files from the 'public' directory. tell express to serve the content of public dir, the express.static middleware is used to serve static files from the public directory. The middleware should be added before any other routes or middleware.
+app.use(session({ secret: 'secret',
+resave: false,
+saveUninitialized: false,}));//D4
+
+declare module 'express-session' {
+  interface SessionData {
+    user?: User;
+  }
+}
+
+//routering
 app.use(registerRouter());//D4
-app.use(flashMiddleware);//D4
-             
+app.use(loginRouter());//D4
+app.use(mainRouter());//D4
+
+
+
 // Parse JSON data
 let lampsData: Lamp[] = [];
 let fabricsData: Fabrikant[] = [];
@@ -46,6 +54,7 @@ let fabricsData: Fabrikant[] = [];
 // //     res.redirect("/login");
 // // }
 // })
+
 
 app.get('/lamps', async (req, res) => {
   //zoekbalk producten
@@ -137,7 +146,7 @@ app.get('/lamps', async (req, res) => {
     sortField: sortField,
     sortDirection: sortDirection,
     searchQuery,
-    page:'lamps'
+    page: 'lamps'
   });
 });
 
@@ -147,7 +156,7 @@ app.get('/lampDetail/:id', (req, res) => {
   if (lamp) {
     res.render('lampDetail', {
       lamp: lamp,
-      page:'lampDetail'
+      page: 'lampDetail'
     });
   } else {
     res.status(404).send('Geen lamp gevonden')
@@ -157,7 +166,7 @@ app.get('/lampDetail/:id', (req, res) => {
 app.get('/fabrics', async (req, res) => {
   res.render('fabrics', {
     fabrics: fabricsData,
-    page:'fabrics'
+    page: 'fabrics'
   });
 });
 
@@ -167,7 +176,7 @@ app.get('/fabricDetail/:id', (req, res) => {
   if (fabric) {
     res.render('fabricDetail', {
       fabric: fabric,
-      page:'fabricDetail'
+      page: 'fabricDetail'
     });
   } else {
     res.status(404).send('Geen lamp gevonden')
@@ -180,7 +189,7 @@ app.get('/lampEdit/:id', async (req, res) => {
   if (lamp) {
     res.render('lampEdit', {
       lamp: lamp,
-      page:'lampEdit'
+      page: 'lampEdit'
     });
   } else {
     res.status(404).send('geen lamp gevonden')
@@ -224,13 +233,13 @@ app.post('/lampEdit/:id', async (req, res) => {
 
 //D3: sluit connectie wnnr app stopt
 async function exit() {
-    try {
-        await client.close();
-        console.log("Disconnected from database");
-    } catch (error) {
-        console.error(error);
-    }
-    process.exit(0);
+  try {
+    await client.close();
+    console.log("Disconnected from database");
+  } catch (error) {
+    console.error(error);
+  }
+  process.exit(0);
 }
 
 //D3 DB MongoDB: connectie met db opzetten
@@ -239,9 +248,9 @@ async function connect() {
     await client.connect();
     console.log('Connected to MongoDB Atlas from index.ts!');
     const db = client.db("db_lamps");
-    process.on("SIGINT",exit);
+    process.on("SIGINT", exit);
     //D4: nieuwe gb enkel tvgn wnnr er nog geen gb in db zitten
-    await createInitialUser(); 
+    await createInitialUser();
     console.log('nieuwe gb aangemaakt');
 
     //controleren of collectie leeg is of nt
@@ -272,17 +281,17 @@ async function connect() {
     fabricsData = await db.collection("Fabrikant").find<Fabrikant>({}).toArray();
 
   } catch (error) {
-    console.error(error);
+    console.error('er is een error bij het inloggen: ' + error);
   }
 }
 
 //start server
 app.listen(app.get('port'), async () => {
-  try{
+  try {
     await connect();
     console.log('Server started on http://localhost:' + app.get('port'));
-  }catch(e){
+  } catch (e) {
     console.log(e);
-        process.exit(1); //app stopt wnr er error is, app kan nt zndr db con dus server mag nt blijven draaien wnnr er error is
-  } 
+    process.exit(1); //app stopt wnr er error is, app kan nt zndr db con dus server mag nt blijven draaien wnnr er error is
+  }
 });

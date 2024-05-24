@@ -1,6 +1,6 @@
 import express from "express";
 
-export function homeRouter() {
+export function mainRouter() {
     const router = express.Router();
 
     router.get("/main", async(req, res) => {

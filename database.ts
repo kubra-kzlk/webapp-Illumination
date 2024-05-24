@@ -5,10 +5,6 @@ import { User } from "./types";
 import bcrypt from "bcrypt";
 import { client } from "./index";
 
-dotenv.config();
-
-
-
 //D4: f zkt gb in db met gegeven email. 
 export async function login(email: string, password: string) {
     if (email === "" || password === "") {
@@ -47,22 +43,26 @@ export async function createInitialUser() {
 
 export async function register(email: string, password: string) {
     if (email === "" || password === "") {
-        throw new Error("Email and password required");
+        throw new Error("Email and password zijn nodig");
     }
-    
-    // const existingUser = await findUserByEmail(email);
-    // if (existingUser) {
-    //     throw new Error("User already exists");
-    // }
-    
+
+    const existingUser = await findUserByEmail(email);
+    if (existingUser) {
+        throw new Error("deze E-mail bestaat al");
+    }
+
     const hashedPassword = await bcrypt.hash(password, 10);
-    
+
     const newUser: User = {
         email: email,
         password: hashedPassword,
         role: "USER"
     };
-    
+
     const result = await client.db("db_lamps").collection<User>("Users").insertOne(newUser);
     return result.insertedId;
+}
+
+export async function findUserByEmail(email: string): Promise<User | null> {
+    return await client.db("db_lamps").collection<User>("Users").findOne({ email });
 }

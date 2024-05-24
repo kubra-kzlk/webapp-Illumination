@@ -1,29 +1,77 @@
+/*mainpage*/
+.card-footer >a{
+  border-color: orange;
+  background-color: orange;
+}
 
 .mainLamps{
   margin-left: 60px;
 }
+/**/
+.input-group{
+  max-width: 500px;
+  width: 100%; 
+  
+}
+.mb-3  {
+  max-width: 300px; 
+  width: 100%; 
+}
+
+th{
+  color: orange;
+}
+th >a{
+  color: orange;
+}
+td{
+  border-color: orange;
+  background-color: orange;
+}
+td > button{
+  background-color: orange;
+}
+.btn-orange {
+  background-color: orange;
+  border-color: orange;
+  color: white;
+}
+
+.btn-orange:hover {
+  background-color: darkorange;
+  border-color: darkorange;
+  color: white;
+}
+
+.bg-orange {
+  background-color: orange !important;
+  border: orange!important;  
+}
+
+.bg-orange:hover {
+  background-color: darkorange !important;
+}
+.card-link{
+  color: orange;
+}
 .container {
   max-width: 960px;
 }
-/* Basic styling for the navbar items */
+
 .navbar .navbar-brand {
-  color: #000; /* Initial color */
-  transition: color 0.3s ease; /* Smooth transition for color change */
+  color: #000; 
+  transition: color 0.3s ease; 
 }
 
-/* Hover effect for the navbar items */
 .navbar .navbar-brand:hover {
-  color: yellow; /* Hover color */
+  color: orange; 
 }
-
-/* Active page styling */
 .navbar .navbar-brand.active {
-  border-bottom: 2px solid yellow; /* Active page border color */
+  border-bottom: 2px solid orange;
 }
 
-/* Optional: Maintain hover color for active item */
 .navbar .navbar-brand.active:hover {
-  color: yellow; /* Keep the hover color for active item */
+  color: orange;
 }
 
 .product-device {
@@ -55,8 +103,6 @@
   left: 5%;
   background-color: #e5e5e5;
 }
-
-
 .flex-equal > * {
   flex: 1;
 }

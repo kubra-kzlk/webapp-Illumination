@@ -9,6 +9,7 @@
           <th>Adres</th>
           <th>Telefoon</th>
           <th>Website</th>
+          <th>Details</th>
         </tr>
       </thead>
       <tbody>
@@ -24,10 +25,15 @@
               
             </div>
           </td>
-          <td > <a href="/fabricDetail/<%= fabric.id %>" ><%- fabric.naam %> </a></td>
+          <td > <%- fabric.naam %> </td>
           <td >&#x1F3E3;<%- fabric.adres %></td>
           <td>&#9742; <%- fabric.telefoon %></td>
           <td>&#x1F310;<%- fabric.website %></td>
+          <td>
+            <button type="button" class="btn btn-link btn-sm btn-rounded">
+              <a href="/fabricDetail/<%= fabric.id %>" class="btn btn-orange"> &#x1F441; </a>
+            </button>
+          </td>
         </tr>
         <% }) %>
       </tbody>

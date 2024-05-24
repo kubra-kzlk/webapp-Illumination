@@ -13,9 +13,6 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@2.9.1/dist/umd/popper.min.js"></script>
-    
-    
-    
 </head>
 
 <body class="d-flex flex-column min-vh-100">
@@ -23,11 +20,16 @@
     <nav class="navbar navbar-light bg-body-tertiary">
       <ul class="container-fluid">
         <a class="navbar-brand" href="#"> </a>
+        <a class="navbar-brand" href="#"> </a>
         <a class="navbar-brand <%= page === 'home' ? 'active' : '' %>" href="/main">&#127968; HOME</a>
          
         <a class="navbar-brand <%= page === 'lamps' ? 'active' : '' %>" href="/lamps">&#9728; LAMPS </a>
         <a class="navbar-brand <%= page === 'fabrics' ? 'active' : '' %>" href="/fabrics">&#x1F3E3; FABRICS </a>
         <a class="navbar-brand" href="#"> </a>
+        <form action="/logout" method="post">
+          <button type="submit" class=" btn btn-link btn-sm btn-rounded btn-orange"> LOGOUT</button>
+      </form>
+          
       </ul>
     </nav>
   </header>

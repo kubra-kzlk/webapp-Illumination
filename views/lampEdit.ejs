@@ -1,5 +1,5 @@
 <%- include('./partials/header') %>
-  <main >
+  <main>
     <div class="card border-light mb-5" style="max-width: 1500px">
       <div class="card border-light mb-5" style="max-width: 1500px">
         <div class="row g-0">
@@ -12,32 +12,41 @@
                 <h1 class="card-title"><%- lamp.naam %></h1>
                 <p class="card-text">&#x1F194; &nbsp; <%- lamp.id %></p>
                 <!-- Radioknopvelden -->
-                <label>Beschikbaar:</label>
-                <input type="radio" id="ja" name="actief" value="ja" required/>
-                <label for="ja">Ja</label>
-                <input type="radio" id="nee" name="actief" value="nee" required/>
-                <label for="nee">Nee</label>
-              </br></br>
-                <label for="prijs">Prijs in &#8364; :</label>
-                <input type="number" id="prijs" class="form-control" name="prijs" step="0.01" min="0" 
-                 value="<%= lamp.prijs %>" required >
-                <!-- Keuzelijstveld --></br>
-                <label for="kleur">Kleur:</label>
-                <select id="kleur" name="kleur" class="form-control">
-                  <option value="geel">geel</option>
-                  <option value="roze">roze</option>
-                  <option value="grijs">grijs</option>
-                  <option value="paars">paars</option>
-                  <option value="groen">groen</option>
-                </select></br>
-                <section class="form-group">
-                  <label for="beschrijving">Beschrijving:</label>
-                  <textarea class="form-control" id="beschrijving" rows="3" type="text"  placeholder="beschrijving" name="beschrijving"
-                  value="<%= lamp.beschrijving%> " required> </textarea>
-                </section></br>
-                <button type="submit" value="Update" class="btn btn-primary" >Update</button>
+                <div class="mb-3">
+                  <label>Beschikbaar:</label>
+                  <input type="radio" id="ja" name="actief" value="ja" required />
+                  <label for="ja">Ja</label>
+                  <input type="radio" id="nee" name="actief" value="nee" required />
+                  <label for="nee">Nee</label>
+                  </br></br>
+                </div>
+                <div class="mb-3">
+                  <label for="prijs">Prijs in &#8364; :</label>
+                  <input type="number" id="prijs" class="form-control" name="prijs" step="0.01" min="0"
+                    value="<%= lamp.prijs %>" required>
+                </div>
+                <div class="mb-3">
+                  <!-- Keuzelijstveld --></br>
+                  <label for="kleur">Kleur:</label>
+                  <select id="kleur" name="kleur" class="form-control">
+                    <option value="geel">geel</option>
+                    <option value="roze">roze</option>
+                    <option value="grijs">grijs</option>
+                    <option value="paars">paars</option>
+                    <option value="groen">groen</option>
+                  </select></br>
+                </div>
+                <div class="mb-3">
+                  <section class="form-group">
+                    <label for="beschrijving">Beschrijving:</label>
+                    <textarea class="form-control" id="beschrijving" rows="3" type="text" placeholder="beschrijving"
+                      name="beschrijving" value="<%= lamp.beschrijving%> " required> </textarea>
+                  </section></br>
+                </div>
+
+                <button type="submit" value="Update" class="btn btn-orange">Update</button>
               </form>
-          
+
             </div>
           </div>
         </div>

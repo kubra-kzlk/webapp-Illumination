@@ -11,15 +11,19 @@
       </select>
       <button type="submit" class="btn btn-outline-primary">Sorteer</button> -->
 
-      <!--zoekbalk-->
-      <form action="/lamps" method="get" class="input-group mb-3">
-        <input style="margin-left: 50px;" class="form-control" type="text" id="q" name="q" placeholder="zoek een product"
-          value="<%= searchQuery %>" aria-describedby="button-addon2" />
-        <button class="btn btn-outline-secondary" type="submit" id="button-addon2"style="margin-right: 50px;">
-          &#x1F50D;
-        </button>
-      </form>
-      <!--zoekbalk-->
+    <!--zoekbalk-->
+    <div class="container">
+      <div class="row justify-content-center">
+        <form action="/lamps" method="get" class="input-group ">
+          <input style="margin-left: 50px;" class="form-control" type="text" id="q" name="q"
+            placeholder="zoek een product" value="<%= searchQuery %>" aria-describedby="button-addon2" />
+          <button class="btn btn-outline-secondary" type="submit" id="button-addon2" style="margin-right: 50px;">
+            &#x1F50D;
+          </button>
+        </form>
+      </div>
+    </div>
+    <!--zoekbalk-->
     </form>
 
     <!--tabel met producten-->
@@ -60,11 +64,11 @@
                 </svg>
               <td>
                 <button type="button" class="btn btn-link btn-sm btn-rounded">
-                  <a href="/lampDetail/<%= lamp.id %>" class="btn btn-primary"> &#x1F441; </a>
+                  <a href="/lampDetail/<%= lamp.id %>" class="btn btn-orange"> &#x1F441; </a>
                 </button>
               </td>
               <td><button type="button" class="btn btn-link btn-sm btn-rounded">
-                  <a href="/lampEdit/<%= lamp.id %>" class="btn btn-primary"> &#x270F; </a>
+                  <a href="/lampEdit/<%= lamp.id %>" class="btn btn-orange"> &#x270F; </a>
                 </button></td>
             </tr>
             <% }) %>
