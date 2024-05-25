@@ -37,26 +37,41 @@
         <input type="password" class="form-control" id="password" name="password" required>
       </div>
     </div>
+    <br>
     <div class="d-flex justify-content-center">
       <button type="button" class="btn btn-primary bg-orange text-white">
         <!-- <a href="/main" class="text-white"></a>Inloggen -->Inloggen
       </button>
   </form>
-</div>
 
 </div>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+</div>
+<% if (message !=="" ) { %>
+  <div class="d-flex justify-content-center error-message">
+    <%= message %>
+  </div>
+  <% } %>
+    <br>
+    <br>
+    <section class="d-flex justify-content-center">
+      <p>
+        Nog geen account? <br> <a href="/">Maak een account aan
 
-<%- include('./partials/footer') %>
+        </a>
+      </p>
+    </section>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <%- include('./partials/footer') %>

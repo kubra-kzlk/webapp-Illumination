@@ -3,13 +3,13 @@ import { Lamp, Fabrikant } from './types';
 import { MongoClient } from 'mongodb';
 import dotenv from 'dotenv';
 import { createInitialUser } from "./database"
-// import {sessionMiddleware} from "./session"; //D4
 import { loginRouter } from "./routes/loginRouter";
 import { mainRouter } from "./routes/mainRouter";
 import { registerRouter } from "./routes/registerRouter";
 import { secureMiddleware } from './secureMiddleware';
 import {User} from "./types";
-import session from 'express-session';
+// import session from 'express-session';
+import session from "./session";
 dotenv.config();//D4 Load environment variables from .env file
 
 export const uri = process.env.MONGO_URI ?? 'mongodb+srv://flowerpowerrr33:flowerpower@webontw.xhfyyfc.mongodb.net/';
@@ -21,40 +21,27 @@ app.set('view engine', 'ejs'); // EJS als view engine, Set the view engine for t
 app.use(express.json());// Parse JSON bodies for this app
 app.use(express.urlencoded({ extended: true }));// Parse URL-encoded bodies for this app
 app.use(express.static('public'));// Serve static files from the 'public' directory. tell express to serve the content of public dir, the express.static middleware is used to serve static files from the public directory. The middleware should be added before any other routes or middleware.
-app.use(session({ secret: 'secret',
-resave: false,
-saveUninitialized: false,}));//D4
+// app.use(session);
+// app.use(session({ secret: 'secret',
+// resave: false,
+// saveUninitialized: false,}));//D4
 
-declare module 'express-session' {
-  interface SessionData {
-    user?: User;
-  }
-}
+// declare module 'express-session' {
+//   interface SessionData {
+//     user?: User;
+//   }
+// }
 
 //routering
 app.use(registerRouter());//D4
 app.use(loginRouter());//D4
 app.use(mainRouter());//D4
-
-
-
+app.get("/", async(req, res) => {
+  res.render("index");
+});
 // Parse JSON data
 let lampsData: Lamp[] = [];
 let fabricsData: Fabrikant[] = [];
-
-//D4: middlew alleen aan index route tvgn
-// app.get('/', secureMiddleware, async (req, res) => {
-
-//   res.render("index");
-//   //checken of gb is ingelogd of nt
-//   //PROBLEEM: vr elke route controleren of gb is ingelogd => veel werk, foutgevoelig ==> OPL: middleware: contro of gb is ingelogd
-// //   if (req.session.user) {
-// //     res.render("index", {user: req.session.user});
-// // } else {
-// //     res.redirect("/login");
-// // }
-// })
-
 
 app.get('/lamps', async (req, res) => {
   //zoekbalk producten

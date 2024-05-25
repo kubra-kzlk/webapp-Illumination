@@ -13,7 +13,6 @@ const mongoStore = new mongoDBStore({
     databaseName: "db_lamps"
 })
 
-
 declare module 'express-session' {
     export interface SessionData {
       user?: User;

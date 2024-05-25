@@ -37,16 +37,23 @@
           <input type="password" class="form-control" id="password" name="password" required>
         </div>
       </div>
+      <br>
       <div class="d-flex justify-content-center">
         <button type="submit" class="btn btn-primary bg-orange text-white">Registreer</button>
       </div>
+      <% if (message !== "") { %>
+        <div class="d-flex justify-content-center error-message"><%= message %>  </div>
+      <% } %>
     </form>
-
+    
   </div>
-
 </div>
 
-<br>
+<section class="d-flex justify-content-center">
+  <p>
+    Heb je al een account? <br> <a href="/login">Meld je dan hier aan!</a>
+  </p>
+</section>
 <br>
 <br>
 <br>
