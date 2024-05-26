@@ -1,67 +1,95 @@
-<!DOCTYPE html>
-<html lang="en">
+<%- include('./partials/header') %>
+  <main class="mainLamps">
+    <!--zoekfunctie naast zoekbalk-->
+    <!-- <form action="/lamps" method="get" class="input-group p-lg-5 mx-auto">
+      <select name="sortField">
+        <% for (let field of sortFields) { %>
+          <option value="<%= field.value %>" <%="field.selected" %>
+            ><%= field.text %>
+          </option>
+          <% } %>
+      </select>
+      <button type="submit" class="btn btn-outline-primary">Sorteer</button> -->
 
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ILLUMINATION</title>
-
-  <link rel="stylesheet" href="/style.css" />
-  <link rel="canonical" href="https://v5.getbootstrap.com/docs/5.0/examples/product/" />
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
-    integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous" />
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
-    integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-    crossorigin="anonymous"></script>
-</head>
-
-<div class="container my-5">
-  <h1 class="mt-5 text-center">Registratie</h1>
-  <br>
-  <div class="d-flex justify-content-center align-items-center">
-    <form action="/" method="POST">
-      <div class="form-group">
-        <div class="mb-3">
-          <label for="username" class="form-label">Gebruikersnaam</label>
-          <input type="text" class="form-control" id="username" name="username" required>
-        </div>
+    <!--zoekbalk-->
+    <div class="container">
+      <div class="row justify-content-center">
+        <form action="/" method="get" class="input-group ">
+          <input style="margin-left: 50px;" class="form-control" type="text" id="q" name="q"
+            placeholder="zoek een product" value="<%= searchQuery %>" aria-describedby="button-addon2" />
+          <button class="btn btn-outline-secondary" type="submit" id="button-addon2" style="margin-right: 50px;">
+            &#x1F50D;
+          </button>
+        </form>
       </div>
-      <div class="form-group">
-        <div class="mb-3">
-          <label for="password" class="form-label">Wachtwoord</label>
-          <input type="password" class="form-control" id="password" name="password" required>
-        </div>
-      </div>
-      <br>
-      <div class="d-flex justify-content-center">
-        <button type="submit" class="btn btn-primary bg-orange text-white">Registreer</button>
-      </div>
-      <% if (message !== "") { %>
-        <div class="d-flex justify-content-center error-message"><%= message %>  </div>
-      <% } %>
+    </div>
+    <!--zoekbalk-->
     </form>
-    
-  </div>
-</div>
 
-<section class="d-flex justify-content-center">
-  <p>
-    Heb je al een account? <br> <a href="/login">Meld je dan hier aan!</a>
-  </p>
-</section>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<%- include('./partials/footer') %>
+    <!--tabel met producten-->
+    <div class="col-sm p-lg-5 mx-auto my-5">
+      <table class="table align-middle mb-0 bg-white table-hover">
+        <thead>
+          <tr>
+            <th> </th>
+            <% for (let field of sortFields) { %>
+              <th>
+                <a
+                  href="?sortField=<%= field.value %>&sortDirection=<%= field.value === sortField ? sortDirection === 'asc' ? 'desc' : 'asc' : 'asc' %>">
+                  <%= field.text %>
+                    <% if (field.value===sortField) { %>
+                      <%- sortDirection==='asc' ? '▲' : '▼' %>
+                        <% } %>
+                </a>
+              </th>
+              <% } %>
+                <th>Details</th>
+                <% if (user.role==="ADMIN" ) { %>
+                  <th>Aanpassen</th>
+                  <% } %>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (searchQuery && lamps.length===0) { %>
+            <tr>
+              <td colspan="6">No results found.</td>
+            </tr>
+            <% } else { %>
+              <% for (let lamp of lamps) { %>
+                <tr>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <img src="<%- lamp.foto %>" class="rounded" alt="image" style="width: 80px; height: 80px" />
+                    </div>
+                  </td>
+                  <td> &#9728; <%- lamp.naam %></td>
+                  <td class="fw-normal mb-1"> &#x1F4B2; <%- lamp.prijs %></td>
+                  <td>&#x1F194;<%- lamp.id %></td>
+                  <td>&#x1F3A8;<%- lamp.kleur %></i></td>
+                  <td data-cell="Active">
+                    <svg width="10" height="10">
+                      <circle cx="5" cy="5" r="5" fill="<%= lamp.actief ? 'green' : 'red' %>" />
+                    </svg>
+                  </td>
+                  <td>
+                    <button type="button" class="btn btn-link btn-sm btn-rounded">
+                      <a href="/lampDetail/<%= lamp.id %>" class="btn btn-orange"> &#x1F441; </a>
+                    </button>
+                  </td>
+                  <!--Alleen ADMIN mag de edit button zien op de dashboard p. 
+                button te verbergen voor de USER role-->
+                  <% if (user.role==="ADMIN" ) { %>
+                    <td>
+                      <button type="button" class="btn btn-link btn-sm btn-rounded">
+                        <a href="<%= lamp.id %>" class="btn btn-orange"> &#x270F; </a>
+                      </button>
+                    </td>
+                    <% } %>
+                </tr>
+                <% } %>
+                  <% } %>
+        </tbody>
+      </table>
+    </div>
+  </main>
+  <%- include('./partials/footer') %>

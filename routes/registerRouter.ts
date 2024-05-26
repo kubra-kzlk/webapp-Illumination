@@ -1,20 +1,21 @@
 import express from "express";
 import { register } from '../database';
+import { checkLogin } from "../secureMiddleware";
 
 export function registerRouter() {
   const router = express.Router();
 
-  router.get('/', async (req, res) => {
-    res.render('',  {message: ""});
+  router.get('/register',checkLogin, async (req, res) => {
+    res.render('register');
   });
 
-  router.post('/', async (req, res) => {
+  router.post('/register', async (req, res) => {
     const { email, password } = req.body;
     try {
       await register(email, password)
-      res.redirect("login");
-    } catch (error: any) {
-      res.render("", { message: error })
+      res.redirect("/login");
+    } catch (err: any) {
+      res.render("register", { error: err.message })
     }
   });
   return router;

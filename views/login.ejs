@@ -19,59 +19,46 @@
     integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
     crossorigin="anonymous"></script>
 </head>
-
+  <main>
 <h1 class="mt-5 text-center">Inloggen</h1>
 <br>
 <div class="container d-flex justify-content-center align-items-center">
   <form class="login" action="/login" method="post" id="login-form">
     <div class="form-group">
       <div class="mb-3">
-        <label for="username" class="form-label">Gebruikersnaam</label>
-        <input type="text" class="form-control" id="username" name="username" required>
+        <label for="email" class="form-label">E-mailadres</label>
+        <input type="email" class="form-control" id="email" name="email" required>
       </div>
     </div>
     <div class="form-group">
       <div class="mb-3">
-        <label for="password" class="form-label">
-          Wachtwoord</label>
+        <label for="password" class="form-label">Wachtwoord</label>
         <input type="password" class="form-control" id="password" name="password" required>
       </div>
     </div>
     <br>
     <div class="d-flex justify-content-center">
-      <button type="button" class="btn btn-primary bg-orange text-white">
+      <button type="submit" class="btn btn-primary bg-orange text-white">
         <!-- <a href="/main" class="text-white"></a>Inloggen -->Inloggen
       </button>
   </form>
 
 </div>
 </div>
-<% if (message !=="" ) { %>
-  <div class="d-flex justify-content-center error-message">
-    <%= message %>
-  </div>
-  <% } %>
-    <br>
-    <br>
-    <section class="d-flex justify-content-center">
-      <p>
-        Nog geen account? <br> <a href="/">Maak een account aan
-
-        </a>
-      </p>
-    </section>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-
-    <%- include('./partials/footer') %>
+<br>
+<br>
+<section class="d-flex justify-content-center">
+  <p>
+    Nog geen account? <br> <a href="/register">Maak een account aan</a>
+  </p>
+</section>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</main>
+<%- include('./partials/footer') %>

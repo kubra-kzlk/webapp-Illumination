@@ -1,15 +1,12 @@
 import express from 'express';
 import { User } from '../types';
 import { login } from '../database';
-import { secureMiddleware } from '../secureMiddleware';
+import {  checkLogin} from '../secureMiddleware';
 
 export function loginRouter() {
     const router = express.Router();
-
-    router.get("/login", (req, res) => {
-        res.render("login", {
-            message: ""
-          });
+    router.get("/login", checkLogin,(req, res) => {
+        res.render("login");
     });
 
     //D4: gb inloggen en in sessie data zetten. w8W w verwijderd
@@ -20,17 +17,16 @@ export function loginRouter() {
             let user: User = await login(email, password);
             delete user.password;
             req.session.user = user;
-            res.redirect("/main");
-        } catch (error: any) {
-            res.render("login", {message: error});
+            res.redirect("/");
+        } catch (err: any) {
+            res.redirect("/login");
         }
     });
-    //logout knop in header, verwijst nr de login pag
+    
     router.post("/logout", async (req, res) => {
         req.session.destroy(() => {
             res.redirect("/login");
         });
     });
-
     return router;
 }

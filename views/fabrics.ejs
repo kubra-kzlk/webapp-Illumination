@@ -13,29 +13,29 @@
         </tr>
       </thead>
       <tbody>
-        <% fabrics.forEach(fabric => { %>
+          <% for (let fabric of fabrics) { %>
         <tr>
           <td>
             <div class="d-flex align-items-center">
               <img
-                src="<%- fabric.foto %>"
+                src="<%= fabric.foto %>"
                 alt="image" class="rounded"
                 style="width: 80px; height: 80px"
               />
               
             </div>
           </td>
-          <td > <%- fabric.naam %> </td>
-          <td >&#x1F3E3;<%- fabric.adres %></td>
-          <td>&#9742; <%- fabric.telefoon %></td>
-          <td>&#x1F310;<%- fabric.website %></td>
+          <td > <%= fabric.naam %> </td>
+          <td >&#x1F3E3;<%= fabric.adres %></td>
+          <td>&#9742; <%= fabric.telefoon %></td>
+          <td>&#x1F310;<%= fabric.website %></td>
           <td>
             <button type="button" class="btn btn-link btn-sm btn-rounded">
               <a href="/fabricDetail/<%= fabric.id %>" class="btn btn-orange"> &#x1F441; </a>
             </button>
           </td>
         </tr>
-        <% }) %>
+        <% } %>
       </tbody>
     </table>
   </div>
