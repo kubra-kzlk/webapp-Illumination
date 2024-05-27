@@ -26,6 +26,7 @@ export interface Fabrikant {
   website: string;
 }
 //D4:USER COLLECTION 
+/*interface aanmkn vr gb, Een ADMIN kan bijvoorbeeld extra functionaliteiten hebben die een USER niet heeft.*/
 export interface User {
   _id?: ObjectId;
   email: string;

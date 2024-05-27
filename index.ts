@@ -1,18 +1,15 @@
-import express, { } from 'express';
+import express, { } from 'express'; //index.tx = express.js app
 import { Lamp, Fabrikant } from './types';
 import dotenv from 'dotenv';
 import { checkLogin, secureMiddleware } from './secureMiddleware';
 import { loginRouter } from "./routes/loginRouter";
 import { registerRouter } from "./routes/registerRouter";
 import session from "./session";
-import { Collection, MongoClient } from "mongodb";
 import { connect, findLampById, findFabricById,findLampByName, updateLampById, getAllLamps, getAllFabricss } from './database';
 dotenv.config();//D4 Load environment variables from .env file
 const app = express();// Get the default connection
 let lampsData: Lamp[] = [];
 let fabricsData: Fabrikant[] = [];
-export const uri = process.env.MONGO_URI ?? 'mongodb+srv://flowerpowerrr33:flowerpower@webontw.xhfyyfc.mongodb.net/';
-export const client = new MongoClient(uri);
 
 //view engine setup ==> niet aanraken
 app.set("view engine", "ejs"); // EJS als view engine
@@ -21,7 +18,7 @@ app.set("port", process.env.PORT || 3000);
 app.use(express.static('public'));// Serve static files from the 'public' directory. tell express to serve the content of public dir, the express.static middleware is used to serve static files from the public directory. The middleware should be added before any other routes or middleware.
 app.use(express.json());// Parse JSON bodies for this app
 app.use(express.urlencoded({ extended: true }));// Parse URL-encoded bodies for this app
-app.use(session);
+app.use(session); //eigen session middleware toe aan de Express applicatie
 
 //routering
 app.use(loginRouter());//D4
@@ -29,7 +26,7 @@ app.use(registerRouter());//D4
 
 app.get("/", secureMiddleware, async (req, res) => {
   if (req.session.user) {
-    //zoekbalk producten
+    //zoekbalk producten obv naam 
     const searchQuery = typeof req.query.q === 'string' ? req.query.q.toLowerCase() : '';
     let lampslatest: Lamp[] = await getAllLamps();
     let filteredLamps = lampslatest;
@@ -40,11 +37,9 @@ app.get("/", secureMiddleware, async (req, res) => {
       );
     }
 
-    //sorteer gedeelte
+    //sorteer gedeelte met mongodb (zie db)
     const sortField = typeof req.query.sortField === 'string' ? req.query.sortField : 'naam';
-    const sortDirection = typeof req.query.sortDirection === 'string'
-      ? req.query.sortDirection
-      : 'asc';
+    const sortDirection = typeof req.query.sortDirection === 'string' ? req.query.sortDirection : 'asc';
 
     let sortedLamps = [...filteredLamps].sort((a, b) => {
       if (sortField === 'naam') {
@@ -126,7 +121,7 @@ app.get("/", secureMiddleware, async (req, res) => {
   }
 });
 
-app.get('/lampDetail/:id', async (req, res) => {
+app.get('/lampDetail/:id',secureMiddleware, async (req, res) => {
   const lampName = req.query.name as string;
   const selectedLamp = await findLampByName(lampName);
   res.render('lampDetail', {
@@ -136,7 +131,7 @@ app.get('/lampDetail/:id', async (req, res) => {
 
 });
 
-app.get('/fabrics', async (req, res) => {
+app.get('/fabrics', secureMiddleware,async (req, res) => {
   res.render('fabrics', {
     fabrics: fabricsData,
     lampData: lampsData,
@@ -144,7 +139,7 @@ app.get('/fabrics', async (req, res) => {
   });
 });
 
-app.get('/fabricDetail/:id', async (req, res) => {
+app.get('/fabricDetail/:id', secureMiddleware,async (req, res) => {
   const id = parseInt(req.params.id);
   const fabric = await findFabricById(id);
 
@@ -187,6 +182,7 @@ app.post('/lampEdit/:id', async (req, res) => {
 app.listen(app.get('port'), async () => {
   try {
     await connect();
+    console.log("Server is running on port 3000");
     fabricsData = await getAllFabricss();
     lampsData = await getAllLamps();
     console.log('Server started on http://localhost:' + app.get('port'));

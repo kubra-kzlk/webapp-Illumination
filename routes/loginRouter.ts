@@ -25,8 +25,9 @@ export function loginRouter() {
     
     router.post("/logout", async (req, res) => {
         req.session.destroy(() => {
+            console.log("Sessie verwijderd");
             res.redirect("/login");
-        });
+        }); //Om data uit de sessie te verwijderen, kan je de property verwijderen uit het req.session object:
     });
     return router;
 }

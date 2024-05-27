@@ -6,10 +6,11 @@ import { NextFunction, Request, Response } from "express";
 export function secureMiddleware(req: Request, res: Response, next: NextFunction) {
   if (req.session.user) {
     res.locals.user = req.session.user;
-    next();
+    next(); //Anders zal de request niet naar de volgende middleware functie in de stack gaan en zal deze request ook niet naar de route gaan.
   } else {
     res.redirect("/login");
-  }
+  }//als gb ingelogd: gb toegevoegd aan de res.locals zodat deze beschikbr is in de views. 
+  //Als gb nt ingelogd;gb drgestrd nr loginpag
 };
 
 export function checkLogin(req: Request, res: Response, next: NextFunction) {
