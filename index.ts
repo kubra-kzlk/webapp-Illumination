@@ -11,7 +11,6 @@ const app = express();// Get the default connection
 let lampsData: Lamp[] = [];
 let fabricsData: Fabrikant[] = [];
 
-//view engine setup ==> niet aanraken
 app.set("view engine", "ejs"); // EJS als view engine
 app.set("port", process.env.PORT || 3000);
 
@@ -25,9 +24,9 @@ app.use(loginRouter());//D4
 app.use(registerRouter());//D4
 
 app.get("/", secureMiddleware, async (req, res) => {
-  if (req.session.user) {
+  if (req.session.user) { //mt weg
     //zoekbalk producten obv naam 
-    const searchQuery = typeof req.query.q === 'string' ? req.query.q.toLowerCase() : '';
+    const searchQuery = typeof req.query.q === 'string' ? req.query.q.toLowerCase() : ''; //moest via mongodb
     let lampslatest: Lamp[] = await getAllLamps();
     let filteredLamps = lampslatest;
 
@@ -122,10 +121,10 @@ app.get("/", secureMiddleware, async (req, res) => {
 });
 
 app.get('/lampDetail/:id',secureMiddleware, async (req, res) => {
-  const lampName = req.query.name as string;
-  const selectedLamp = await findLampByName(lampName);
+  const id = parseInt(req.params.id);
+  const lamp = await findLampById(id);
   res.render('lampDetail', {
-    lamp: selectedLamp,
+    lamp: lamp,
     page: 'lampDetail'
   });
 
