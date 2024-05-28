@@ -1,6 +1,6 @@
 https://illumination.onrender.com
 
-typescript
+* typescript
 javascript
 nosql: mongodb
 html
