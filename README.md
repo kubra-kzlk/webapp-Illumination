@@ -10,6 +10,7 @@ https://illumination.onrender.com
 * middleware
 
 2023 - 2024 1ste jaarsvak Webontwikkeling: Node JS & Typescript
+Node JS: multiplatform JS-runtime-omgeving waarmee JavaScript buiten een browser om uitgevoerd kan worden
 * Milestone 1 - Terminal App: opzetten van een database schema in JSON formaat
 * Milestone 2 - Express: console app gaat omzetten in een web applicatie. Maak hiervoor gebruik van het Web Application Framework Express en gebruik EJS om dynamische views te genereren.
 * Milestone 3 - MongoDB: JSON database migreren naar een MongoDB database.
